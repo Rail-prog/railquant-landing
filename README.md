@@ -37,3 +37,4 @@ Alternatively, swap to **Resend** or any email function and create a tiny server
 ## Notes
 - Built with React 18, Tailwind, Vite, lucide-react icons, and framer-motion.
 - Fully static; perfect for Vercel.
+scss
