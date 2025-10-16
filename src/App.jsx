@@ -253,36 +253,43 @@ export default function App() {
         </div>
 
         {/* Right column: form */}
-        <form action="https://formspree.io/f/mwpryenb" method="POST">
-          <input
-            className="rounded-xl border px-4 py-3"
-            placeholder="Name"
-            name="name"
-            required
-          />
+        <form action="https://formspree.io/f/mkgqyjnn" method="POST">
+  {/* Optional: subject line you’ll see in your inbox */}
+  <input type="hidden" name="_subject" value="RailQuant website lead" />
+  {/* Optional: honeypot to reduce spam */}
+  <input type="text" name="_honeypot" className="hidden" tabIndex="-1" autoComplete="off" />
 
-          <input
-            className="rounded-xl border px-4 py-3"
-            placeholder="Email"
-            name="email"
-            type="email"
-            required
-          />
+  <input
+    className="rounded-xl border px-4 py-3"
+    placeholder="Name"
+    name="name"
+    required
+  />
 
-          <textarea
-            className="rounded-xl border px-4 py-3"
-            placeholder="What drawings do you work with?"
-            rows={4}
-            name="message"
-            required
-          />
+  <input
+    className="rounded-xl border px-4 py-3"
+    placeholder="Email"
+    name="email"
+    type="email"
+    required
+  />
 
-          <button
-            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-            type="submit"
-          >
-            Send
-          </button>
+  <textarea
+    className="rounded-xl border px-4 py-3"
+    placeholder="What drawings do you work with?"
+    rows={4}
+    name="message"
+    required
+  />
+
+  <button
+    className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
+    type="submit"
+  >
+    Send
+  </button>
+</form>
+
         </form>
       </div>{/* closes the grid wrapper */}
     </Card>
