@@ -278,15 +278,16 @@ export default function App() {
   </button>
  </form>
 
- </div>
- </Card>
-  </section>
- </main>
-  </Container>
+</div>
+</Card>
+</Container>
+</section>
+</main>
 
- <footer className="py-10 text-center text-xs text-slate-500">
-   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
-  </footer>
-  </div>
- );
+<footer className="py-10 text-center text-xs text-slate-500">
+  © {new Date().getFullYear()} RailQuant AI. All rights reserved.
+</footer>
+</div>
+);
 }
+
