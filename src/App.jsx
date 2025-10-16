@@ -255,6 +255,7 @@ export default function App() {
               </form>
             </div>
           </Card>
+          </main>
         </Container>
       </section>
 
