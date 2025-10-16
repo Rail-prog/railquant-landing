@@ -261,6 +261,7 @@ export default function App() {
     type="email"
     required
   />
+
   <textarea
     className="rounded-xl border px-4 py-3"
     placeholder="What drawings do you work with?"
@@ -268,6 +269,7 @@ export default function App() {
     name="message"
     required
   />
+
   <button
     className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
     type="submit"
@@ -275,14 +277,17 @@ export default function App() {
     Send
   </button>
 </form>
-           </div>
+
+</div>       {/* closes inner <div> */}
 </Card>
-</section>    // 
-</main>       // 
+</section>
+</main>
 </Container>
-      <footer className="py-10 text-center text-xs text-slate-500">
+
+<footer className="py-10 text-center text-xs text-slate-500">
   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
-      </footer>
-    </div>
-  );
+</footer>
+
+</div>
+);
 }
