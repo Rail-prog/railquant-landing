@@ -246,9 +246,7 @@ export default function App() {
                   <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel‑first outputs</li>
                 </ul>
               </div>     
-  <form action="https://formspree.io/f/mwpryenb"
-  method="POST"
->
+  <form action="https://formspree.io/f/mwpryenb" method="POST">
   <input
     className="rounded-xl border px-4 py-3"
     placeholder="Name"
@@ -271,17 +269,13 @@ export default function App() {
   />
   <button
     className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-    type="submit"
-  >
-    Send
-  </button>
+    type="submit" >Send </button>
 </form>
             </div>
           </Card>
           </main>
         </Container>
       </section>
-
       <footer className="py-10 text-center text-xs text-slate-500">
         © {new Date().getFullYear()} RailQuant AI. All rights reserved.
       </footer>
