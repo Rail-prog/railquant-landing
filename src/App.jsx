@@ -276,8 +276,10 @@ export default function App() {
    >
      Send
        </button>
+         </button>
     </form>
-  </div> */}
+
+  </div> {/* closes inner <div> */}
 </Card>
 </Container>
 </section>
@@ -286,6 +288,7 @@ export default function App() {
 <footer className="py-10 text-center text-xs text-slate-500">
   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
 </footer>
+
 </div>
 );
 }
