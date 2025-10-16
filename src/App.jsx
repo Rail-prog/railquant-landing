@@ -233,56 +233,64 @@ export default function App() {
         </Container>
       </section>
 
-      <section id="contact" className="py-16">
-        <Container>
-          <Card>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-2xl font-bold">Book a discovery call</h3>
-                <p className="text-slate-600 mt-2 text-sm">Tell us about your estimating workflow. We’ll show you how RailQuant AI can cut take‑off time by 60–80% and standardise BQQs across projects.</p>
-                <ul className="mt-4 space-y-2 text-sm">
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4"/> NDA available</li>
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4"/> UK‑based data hosting option</li>
-                  <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel‑first outputs</li>
-                </ul>
-              </div>     
- <form action="https://formspree.io/f/mwpryenb" method="POST">
-  <input
-    className="rounded-xl border px-4 py-3"
-    placeholder="Name"
-    name="name"
-    required
-  />
+  {/* CONTACT */}
+<section id="contact" className="py-16">
+  <Container>
+    <Card>
+      <div className="grid md:grid-cols-2 gap-8">
 
-  <input
-    className="rounded-xl border px-4 py-3"
-    placeholder="Email"
-    name="email"
-    type="email"
-    required
-  />
+        {/* ---- LEFT SIDE (your heading + bullets) ---- */}
+        {/* Keep (or re-add) your existing left content ABOVE the form here.
+            Example (you can leave your own content in place):
+            <h3 className="text-2xl font-bold">Book a discovery call</h3>
+            <p className="text-slate-600 mt-2 text-sm">
+              Tell us about your estimating workflow. We’ll show you how RailQuant helps.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li className="flex items-center gap-2"><Check className="h-4 w-4" /> NDA available</li>
+              <li className="flex items-center gap-2"><Check className="h-4 w-4" /> UK-based data hosting option</li>
+              <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Excel-first outputs</li>
+            </ul>
+        */}
 
-  <textarea
-    className="rounded-xl border px-4 py-3"
-    placeholder="What drawings do you work with?"
-    rows={4}
-    name="message"
-    required
-  />
+        {/* ---- RIGHT SIDE: FORM ---- */}
+        <form action="https://formspree.io/f/mwpryenb" method="POST" className="space-y-3">
+          <input
+            className="rounded-xl border px-4 py-3 w-full"
+            placeholder="Name"
+            name="name"
+            required
+          />
 
-  <button
-    className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-    type="submit"
-  >
-    Send
-  </button>
-</form>
+          <input
+            className="rounded-xl border px-4 py-3 w-full"
+            placeholder="Email"
+            name="email"
+            type="email"
+            required
+          />
 
-</div> {/* closes inner <div> */}
-</Card>
-</Container>
+          <textarea
+            className="rounded-xl border px-4 py-3 w-full"
+            placeholder="What drawings do you work with?"
+            rows={4}
+            name="message"
+            required
+          />
+
+          <button
+            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
+            type="submit"
+          >
+            Send
+          </button>
+        </form>
+      </div>{/* /.grid */}
+    </Card>
+  </Container>
 </section>
-</main>
+
+</main>  {/* CLOSE MAIN EXACTLY HERE */}
 
 <footer className="py-10 text-center text-xs text-slate-500">
   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
