@@ -251,8 +251,38 @@ export default function App() {
                 <input className="rounded-xl border px-4 py-3" placeholder="Email" name="email" type="email" required />
                 <textarea className="rounded-xl border px-4 py-3" placeholder="What drawings do you work with?" rows={4} name="message" />
                 <button className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition bg-slate-900 text-white" type="submit">Send</button>
-                <p className="text-xs text-slate-500">Form posts to Formspree. Replace <code>yourid</code> with your endpoint ID.</p>
-              </form>
+              <form
+  className="grid gap-3"
+  action="https://formspree.io/f/mwpryenb"
+  method="POST"
+>
+  <input
+    className="rounded-xl border px-4 py-3"
+    placeholder="Name"
+    name="name"
+    required
+  />
+  <input
+    className="rounded-xl border px-4 py-3"
+    placeholder="Email"
+    name="email"
+    type="email"
+    required
+  />
+  <textarea
+    className="rounded-xl border px-4 py-3"
+    placeholder="What drawings do you work with?"
+    rows={4}
+    name="message"
+    required
+  />
+  <button
+    className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
+    type="submit"
+  >
+    Send
+  </button>
+</form>
             </div>
           </Card>
           </main>
