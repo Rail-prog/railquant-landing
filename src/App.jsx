@@ -276,7 +276,6 @@ export default function App() {
    >
      Send
        </button>
-         </button>
     </form>
 
   </div> {/* closes inner <div> */}
