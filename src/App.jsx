@@ -249,40 +249,39 @@ export default function App() {
   <form action="https://formspree.io/f/mwpryenb" method="POST">
   <input
     className="rounded-xl border px-4 py-3"
-   placeholder="Name"
-   name="name"
+    placeholder="Name"
+    name="name"
     required
-    />
+  />
 
-   <input
-     className="rounded-xl border px-4 py-3"
+  <input
+    className="rounded-xl border px-4 py-3"
     placeholder="Email"
-     name="email"
-  type="email"
-     required
- />
+    name="email"
+    type="email"
+    required
+  />
 
-   <textarea
-   className="rounded-xl border px-4 py-3"
- placeholder="What drawings do you work with?"
-  rows={4}
-  name="message"
-   required
- />
-    
-    <button
-  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-  type="submit"
-   >
-     Send
-       </button>
-    </form>
+  <textarea
+    className="rounded-xl border px-4 py-3"
+    placeholder="What drawings do you work with?"
+    rows={4}
+    name="message"
+    required
+  />
 
-  </div> {/* closes inner <div> */}
+  <button
+    className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
+    type="submit"
+  >
+    Send
+  </button>
+</form>
+
+</div> {/* closes inner <div> */}
 </Card>
-
+</Container>
 </section>
-      </Container>
 </main>
 
 <footer className="py-10 text-center text-xs text-slate-500">
@@ -292,6 +291,3 @@ export default function App() {
 </div>
 );
 }
-
-
-
