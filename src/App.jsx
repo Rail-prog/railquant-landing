@@ -246,7 +246,7 @@ export default function App() {
                   <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel‑first outputs</li>
                 </ul>
               </div>     
-  <form action="https://formspree.io/f/mwpryenb" method="POST">
+ <form action="https://formspree.io/f/mwpryenb" method="POST">
   <input
     className="rounded-xl border px-4 py-3"
     placeholder="Name"
