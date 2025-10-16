@@ -245,14 +245,7 @@ export default function App() {
                   <li className="flex items-center gap-2"><Check className="h-4 w-4"/> UK‑based data hosting option</li>
                   <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel‑first outputs</li>
                 </ul>
-              </div>
-              <form className="grid gap-3" method="POST" action="https://formspree.io/f/yourid">
-                <input className="rounded-xl border px-4 py-3" placeholder="Name" name="name" required />
-                <input className="rounded-xl border px-4 py-3" placeholder="Email" name="email" type="email" required />
-                <textarea className="rounded-xl border px-4 py-3" placeholder="What drawings do you work with?" rows={4} name="message" />
-                <button className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition bg-slate-900 text-white" type="submit">Send</button>
-              <form
-  className="grid gap-3"
+              </div>     
   action="https://formspree.io/f/mwpryenb"
   method="POST"
 >
