@@ -275,11 +275,11 @@ export default function App() {
   type="submit"
    >
      Send
-  </button>
-      </form>
-    </div> {/* closes inner <div> */}
-  </Card> 
-          <Container>
+       </button>
+    </form>
+  </div> */}
+</Card>
+</Container>
 </section>
 </main>
 
@@ -289,5 +289,6 @@ export default function App() {
 </div>
 );
 }
+
 
 
