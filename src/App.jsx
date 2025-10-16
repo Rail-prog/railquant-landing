@@ -279,8 +279,8 @@ export default function App() {
       </form>
     </div> {/* closes inner <div> */}
   </Card> 
+          <Container>
 </section>
-  </Container>
 </main>
 
 <footer className="py-10 text-center text-xs text-slate-500">
