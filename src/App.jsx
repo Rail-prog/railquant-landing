@@ -271,11 +271,11 @@ export default function App() {
     className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
     type="submit" >Send </button>
 </form>
-            </div>
-          </Card>
-          </main>
-        </Container>
-      </section>
+           </div>
+</Card>
+</section>    // 
+</main>       // 
+</Container>
       <footer className="py-10 text-center text-xs text-slate-500">
   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
       </footer>
