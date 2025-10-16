@@ -277,7 +277,7 @@ export default function App() {
         </Container>
       </section>
       <footer className="py-10 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} RailQuant AI. All rights reserved.
+  © {new Date().getFullYear()} RailQuant AI. All rights reserved.
       </footer>
     </div>
   );
