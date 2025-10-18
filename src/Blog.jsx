@@ -13,7 +13,7 @@ export default function Blog() {
       <ul className="space-y-6">
         {posts.map((post, index) => (
           <li
-            key={index}
+            key={post.slug}
             className="border-b border-slate-200 pb-6 last:border-none"
           >
             <h2 className="text-2xl font-semibold mb-2">
