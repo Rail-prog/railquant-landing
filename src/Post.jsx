@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import posts from './Post.js';
+import posts from './posts.js'; // ✅ FIXED
 
 export default function Post() {
   const { slug } = useParams();
@@ -24,11 +24,11 @@ export default function Post() {
         {new Date(post.date).toLocaleDateString()}
       </p>
 
-      {/* Your posts use plain `content`. If you later switch to HTML, we can change this to render HTML safely. */}
       <div className="prose max-w-none text-slate-800">
         <p>{post.content}</p>
       </div>
     </article>
   );
 }
+
 
