@@ -1,26 +1,26 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+const posts = [
+  {
+    slug: "rail-estimating-101",
+    title: "Rail Estimating 101: From Drawings to Quantities",
+    date: "2025-10-12",
+    content:
+      "Estimating for rail projects starts with PDFs or CAD drawings. The fast path is to extract quantities with repeatable logic and keep outputs consistent for pricing. In this article, we explore the core steps of taking drawings and converting them into billable items with accuracy."
+  },
+  {
+    slug: "ai-for-takeoffs",
+    title: "How AI Can Speed Up Drawing Takeoffs",
+    date: "2025-10-10",
+    content:
+      "Drawing takeoff is one of the most time-consuming steps in estimating. With AI-assisted measurement, snapping, and object detection, estimators can drastically reduce the manual workload. Let’s look at how AI helps automate the process while keeping full control."
+  },
+  {
+    slug: "excel-ready-outputs",
+    title: "Why Excel-Ready Outputs Matter in Estimating",
+    date: "2025-10-08",
+    content:
+      "Most estimating still ends up in Excel. Having consistent, structured, and named outputs makes pricing and cost planning much faster. In this post, we break down what 'Excel-ready' really means and how templates help scale your workflow."
+  }
+];
 
-import "./index.css";
-
-import App from "./App.jsx";
-import Blog from "./Blog.jsx";
-import Post from "./Post.jsx";
-
-// If you deploy to a subpath, you could set basename in future.
-// For Vercel/custom domain, default is fine.
-const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  { path: "/blog", element: <Blog /> },
-  { path: "/post/:slug", element: <Post /> },
-  // Fallback: send unknown routes to home (or make a 404 page later)
-  { path: "*", element: <App /> },
-]);
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+export default posts;
 
