@@ -194,13 +194,13 @@ export default function App() {
           <div className="mt-10 grid md:grid-cols-3 gap-6">
             {[{
               name: "Solo",
-              price: "£149/mo",
+              price: "£249/mo",
               blurb: "Freelance estimator or PM",
               features: ["Up to 5 projects/mo", "XLSX/CSV export", "Rate library"],
               cta: "Start trial"
             },{
               name: "Team",
-              price: "£399/mo",
+              price: "£499/mo",
               blurb: "3–10 users",
               features: ["Unlimited projects", "Shared rate libraries", "Review & lock"],
               cta: "Book a demo"
@@ -253,32 +253,36 @@ export default function App() {
         </div>
 
         {/* Right column: form */}
-        <form action="https://formspree.io/f/mkgqyjnn" method="POST">
-  {/* Optional: subject line you’ll see in your inbox */}
-  <input type="hidden" name="_subject" value="RailQuant website lead" />
-  {/* Optional: honeypot to reduce spam */}
-  <input type="text" name="_honeypot" className="hidden" tabIndex="-1" autoComplete="off" />
+      <form action="https://api.web3forms.com/submit" method="POST">
+  {/* Required Web3Forms access key */}
+  <input type="hidden" name="access_key" value="01455b6d-f87d-4204-bd9e-f6671858f113" />
+
+  {/* Optional settings */}
+  <input type="hidden" name="subject" value="New RailQuant Enquiry" />
+  <input type="hidden" name="from_name" value="RailQuant Website" />
+  <input type="hidden" name="redirect" value="https://railquant-landing.vercel.app/?sent=1" />
+  <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
   <input
     className="rounded-xl border px-4 py-3"
-    placeholder="Name"
     name="name"
+    placeholder="Name"
     required
   />
 
   <input
     className="rounded-xl border px-4 py-3"
-    placeholder="Email"
-    name="email"
     type="email"
+    name="email"
+    placeholder="Email"
     required
   />
 
   <textarea
     className="rounded-xl border px-4 py-3"
-    placeholder="What drawings do you work with?"
-    rows={4}
     name="message"
+    rows={4}
+    placeholder="What drawings do you work with?"
     required
   />
 
@@ -289,6 +293,7 @@ export default function App() {
     Send
   </button>
 </form>
+
 
         </form>
       </div>{/* closes the grid wrapper */}
