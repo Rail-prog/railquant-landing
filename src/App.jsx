@@ -240,6 +240,44 @@ export default function App() {
             </div>
           </div>
         </section>
+{/* Latest Insights */}
+<section id="insights" className="py-16 bg-white border-t border-slate-200">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="flex items-end justify-between mb-6">
+      <h2 className="text-2xl font-semibold text-slate-900">Latest insights</h2>
+      <Link to="/blog" className="text-sm text-slate-700 underline">
+        View all
+      </Link>
+    </div>
+
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {latest.map((p) => (
+        <article
+          key={p.slug}
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        >
+          <h3 className="text-lg font-semibold mb-2">
+            <Link to={`/post/${p.slug}`} className="hover:underline">
+              {p.title}
+            </Link>
+          </h3>
+
+          <p className="text-xs text-slate-500 mb-3">
+            {new Date(p.date).toLocaleDateString()}
+          </p>
+
+          <p className="text-sm text-slate-600 mb-4">
+            {p.content.replace(/\s+/g, " ").trim().slice(0, 110)}…
+          </p>
+
+          <Link to={`/post/${p.slug}`} className="text-slate-900 underline text-sm">
+            Read more →
+          </Link>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
 
         {/* Contact */}
         <section id="contact" className="py-16">
