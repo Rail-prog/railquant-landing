@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
-;
+
 
 export default function App() {
   const latest = [...posts]
