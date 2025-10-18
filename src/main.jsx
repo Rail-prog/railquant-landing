@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
-// optional global styles if you have them
+// If you have Tailwind/global CSS, uncomment:
 // import "./index.css";
 
 createRoot(document.getElementById("root")).render(
@@ -9,3 +9,4 @@ createRoot(document.getElementById("root")).render(
     <App />
   </BrowserRouter>
 );
+
