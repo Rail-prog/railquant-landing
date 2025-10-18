@@ -1,54 +1,46 @@
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
 
-
 export default function Blog() {
-  return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold mb-6">RailQuant Blog</h1>
-      <p className="text-slate-600 mb-8">
-        Insights on AI, rail construction estimating, and drawing takeoffs.
-      </p>
+  const sorted = [...posts].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
-      <ul className="space-y-6">
-        {posts.map((post, index) => (
-          <li
-            key={post.slug}
-            className="border-b border-slate-200 pb-6 last:border-none"
+  return (
+    <main className="max-w-4xl mx-auto py-10 px-4">
+      <h1 className="text-3xl font-bold mb-6 text-slate-900">Blog</h1>
+
+      <div className="space-y-6">
+        {sorted.map((p) => (
+          <article
+            key={p.slug}
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
-            <h2 className="text-2xl font-semibold mb-2">
-              <Link
-                to={`/post/${post.slug}`}
-                className="text-blue-600 hover:underline"
-              >
-                {post.title}
+            <h2 className="text-xl font-semibold">
+              <Link to={`/post/${p.slug}`} className="hover:underline">
+                {p.title}
               </Link>
             </h2>
-            <p className="text-slate-500 text-sm mb-2">
-              {new Date(post.date).toLocaleDateString()}
+            <p className="text-xs text-slate-500 mt-1 mb-3">
+              {new Date(p.date).toLocaleDateString()}
             </p>
             <p className="text-slate-700">
-              {post.content.substring(0, 130)}...
+              {p.content.replace(/\s+/g, " ").trim().slice(0, 160)}…
             </p>
-            <Link
-              to={`/post/${post.slug}`}
-              className="text-blue-600 hover:underline mt-2 inline-block"
-            >
-              Read more →
-            </Link>
-          </li>
+            <div className="mt-3">
+              <Link to={`/post/${p.slug}`} className="underline text-slate-900">
+                Read more →
+              </Link>
+            </div>
+          </article>
         ))}
-      </ul>
-
-      <div className="mt-10">
-        <Link
-          to="/"
-          className="text-blue-600 hover:underline"
-        >
-          ← Back to Home
-        </Link>
       </div>
-    </div>
+
+      <p className="mt-8">
+        <Link to="/" className="underline">
+          ← Back to home
+        </Link>
+      </p>
+    </main>
   );
 }
-
