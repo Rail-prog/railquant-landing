@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import posts from "./posts";
 
 export default function App() {
+  const latest = [...posts]
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .slice(0, 3);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800">
       {/* Top Nav */}
