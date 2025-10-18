@@ -1,328 +1,321 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Check, Sparkles, LineChart, Layers, FileSpreadsheet, ShieldCheck, Zap, Download, Calculator, Ruler } from "lucide-react";
-
-const Container = ({ children }) => (
-  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">{children}</div>
-);
-
-const Card = ({ children, className = "" }) => (
-  <div className={`rounded-2xl shadow-md bg-white/80 backdrop-blur p-6 ${className}`}>{children}</div>
-);
-
-const Badge = ({ children }) => (
-  <span className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium uppercase tracking-wide">{children}</span>
-);
-
-const Button = ({ children, href = "#", onClick, className = "" }) => (
-  <a
-    href={href}
-    onClick={onClick}
-    className={`inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition ${className}`}
-  >
-    {children}
-  </a>
-);
+import { Link } from "react-router-dom";
 
 export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800">
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur border-b">
-        <Container>
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-xl bg-slate-900 text-white grid place-items-center font-bold">RQ</div>
-              <span className="font-semibold">RailQuant AI</span>
+      {/* Top Nav */}
+      <header className="sticky top-0 z-30 bg-white/70 backdrop-blur border-b border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-lg bg-slate-900 text-white grid place-items-center font-bold">
+              RQ
             </div>
-            <nav className="hidden md:flex items-center gap-6 text-sm">
-              <a href="#features" className="hover:text-slate-900">Features</a>
-              <a href="#how" className="hover:text-slate-900">How it works</a>
-              <a href="#pricing" className="hover:text-slate-900">Pricing</a>
-              <a href="#contact" className="hover:text-slate-900">Contact</a>
-            </nav>
-            <div className="flex items-center gap-3">
-              <Button href="#contact" className="bg-slate-900 text-white">Book a demo</Button>
-            </div>
+            <span className="font-semibold">RailQuant AI</span>
           </div>
-        </Container>
+
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#features" className="hover:text-slate-900 text-slate-600">
+              Features
+            </a>
+            <a href="#how" className="hover:text-slate-900 text-slate-600">
+              How it works
+            </a>
+            <a href="#pricing" className="hover:text-slate-900 text-slate-600">
+              Pricing
+            </a>
+            <a href="#contact" className="hover:text-slate-900 text-slate-600">
+              Contact
+            </a>
+
+            {/* ✅ Blog route (works when we add /blog route in main.jsx) */}
+            <Link to="/blog" className="hover:text-slate-900 text-slate-600">
+              Blog
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+            >
+              Book a demo
+            </a>
+          </div>
+        </div>
       </header>
 
-      <section className="py-16 md:py-24">
-        <Container>
-          <div className="grid md:grid-cols-2 items-center gap-10">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <Badge>AI for Rail & Civils</Badge>
-              <h1 className="mt-4 text-4xl md:text-6xl font-extrabold leading-tight">
-                Generate take‑offs & BQQs from drawings in minutes.
-              </h1>
-              <p className="mt-4 text-lg text-slate-600">
-                RailQuant AI reads PDFs and CAD exports, extracts quantities for troughing, UTX, LOC suites, chambers, drainage, and more—then builds a priced Bill of Quantities using your own rates.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Button href="#contact" className="bg-slate-900 text-white"><Sparkles className="mr-2 h-4 w-4"/>Get early access</Button>
-                <Button href="#demo" className="bg-white border">Watch demo</Button>
+      {/* Hero */}
+      <main>
+        <section className="py-16 sm:py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div>
+                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
+                  AI software for rail construction estimating and drawing
+                  takeoffs.
+                </h1>
+                <p className="mt-6 text-slate-600 leading-relaxed">
+                  Speed up quantities, reduce manual errors, and deliver
+                  Excel-ready outputs. Built for rail and civils estimators who
+                  need accuracy and repeatability.
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+                  >
+                    Book a discovery call
+                  </a>
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-white"
+                  >
+                    Read product updates
+                  </Link>
+                </div>
+
+                <p className="mt-4 text-xs text-slate-500">
+                  NDA available • UK-based data hosting option • Excel-first
+                  outputs
+                </p>
               </div>
-              <div className="mt-6 flex items-center gap-4 text-sm text-slate-500">
-                <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4"/> GDPR-friendly</div>
-                <div className="flex items-center gap-2"><Zap className="h-4 w-4"/> Private by design</div>
-              </div>
-            </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }}>
-              <Card className="p-0 overflow-hidden">
-                <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
-                  <div className="text-sm">Sample Take‑off</div>
-                  <div className="text-xs opacity-80">.PDF → Quantities</div>
-                </div>
-                <div className="p-6 grid gap-4">
-                  {[
-                    { icon: Ruler, label: "Troughing C/1/37", qty: "1,240 m" },
-                    { icon: Layers, label: "9‑way Multiduct", qty: "180 m" },
-                    { icon: FileSpreadsheet, label: "Turning Chamber 900mm", qty: "12 ea" },
-                    { icon: Calculator, label: "LOC Base + Hardstanding", qty: "4 sets" },
-                  ].map((row, i) => (
-                    <div key={i} className="flex items-center justify-between rounded-xl border p-3">
-                      <div className="flex items-center gap-3">
-                        <row.icon className="h-5 w-5"/>
-                        <div className="font-medium">{row.label}</div>
-                      </div>
-                      <div className="text-slate-600">{row.qty}</div>
-                    </div>
-                  ))}
-                  <div className="rounded-xl bg-slate-50 p-4">
-                    <div className="text-sm text-slate-500 mb-2">BQQ Export</div>
-                    <div className="flex items-center justify-between">
-                      <div className="text-xl font-bold">£ 318,420</div>
-                      <Button className="bg-slate-900 text-white"><Download className="h-4 w-4 mr-2"/>Export XLSX</Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-        </Container>
-      </section>
-
-      <section>
-        <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center opacity-70 text-xs">
-            <div>Network Rail standards</div>
-            <div>NR/L2/CIV/003</div>
-            <div>BS 1192 / ISO 19650</div>
-            <div>CSV • XLSX • PDF</div>
-          </div>
-        </Container>
-      </section>
-
-      <section id="features" className="py-16 md:py-24">
-        <Container>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold">Built for estimators & PMs</h2>
-            <p className="mt-3 text-slate-600">Purpose‑built for rail civils: Summerhill‑style level crossings, LOCs, UTXs, troughing, chambers, drainage and signage bases—without manual counting.</p>
-          </div>
-          <div className="mt-10 grid md:grid-cols-3 gap-6">
-            {[
-              { icon: Layers, title: "Drawing ingestion", desc: "Upload PDFs or CAD exports; we parse layers, symbols, legends and schedules." },
-              { icon: Calculator, title: "Auto take‑off", desc: "Extract quantities for standard NR details and custom items with validation logs." },
-              { icon: FileSpreadsheet, title: "BQQ builder", desc: "Map items to your coding; apply stored rates to output priced BoQs instantly." },
-              { icon: LineChart, title: "Price memory", desc: "Reuse your historic Waux GRP & Candy rates. Flag outliers for review." },
-              { icon: ShieldCheck, title: "Data privacy", desc: "On‑prem or private cloud. Your drawings & rates never train public models." },
-              { icon: Zap, title: "Integrations", desc: "Export to Excel, Candy, and CSV. API for ERPs coming soon." },
-            ].map((f, i) => (
-              <Card key={i}>
-                <div className="flex items-start gap-3">
-                  <f.icon className="h-5 w-5"/>
-                  <div>
-                    <h3 className="font-semibold">{f.title}</h3>
-                    <p className="text-sm text-slate-600 mt-1">{f.desc}</p>
-                  </div>
-                </div>
-                <ul className="mt-4 space-y-2 text-sm">
-                  {["Audit trail","Manual adjust & lock","Export templates"].map((b, j) => (
-                    <li key={j} className="flex items-center gap-2"><Check className="h-4 w-4"/>{b}</li>
-                  ))}
-                </ul>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section id="how" className="py-16 bg-white">
-        <Container>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { step: 1, title: "Upload drawings", text: "Drop the full set: plans, schedules, and standard detail references." },
-              { step: 2, title: "Review take‑off", text: "Check extracted items and edit quantities with audit trail." },
-              { step: 3, title: "Export priced BQQ", text: "Apply your rate library and download XLSX/CSV." },
-            ].map((s,i)=> (
-              <Card key={i}>
-                <div className="text-5xl font-extrabold text-slate-200">0{s.step}</div>
-                <h3 className="mt-2 font-semibold">{s.title}</h3>
-                <p className="text-sm text-slate-600 mt-1">{s.text}</p>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section id="demo" className="py-16">
-        <Container>
-          <Card>
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-2">Interactive demo (coming soon)</h3>
-                <p className="text-slate-600 text-sm">We’ll walk through a sample Summerhill Level Crossing pack and generate the BoQ live.</p>
-                <div className="mt-4 flex items-center gap-3 text-sm">
-                  <div className="flex items-center gap-2"><Check className="h-4 w-4"/> LOC suites</div>
-                  <div className="flex items-center gap-2"><Check className="h-4 w-4"/> UTXs</div>
-                  <div className="flex items-center gap-2"><Check className="h-4 w-4"/> Troughing</div>
+              <div className="relative">
+                <div className="aspect-video w-full rounded-2xl border border-slate-200 bg-white shadow-sm grid place-items-center text-slate-400">
+                  {/* You can replace this with a product screenshot */}
+                  <span className="text-sm">Product preview</span>
                 </div>
               </div>
-              <div className="w-full md:w-80 h-48 rounded-xl bg-slate-100 grid place-items-center text-slate-400">Demo Placeholder</div>
             </div>
-          </Card>
-        </Container>
-      </section>
-
-      <section id="pricing" className="py-16 md:py-24 bg-slate-50">
-        <Container>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold">Simple, ROI‑first pricing</h2>
-            <p className="mt-3 text-slate-600">Includes updates and support. Cancel anytime.</p>
           </div>
-          <div className="mt-10 grid md:grid-cols-3 gap-6">
-            {[{
-              name: "Solo",
-              price: "£249/mo",
-              blurb: "Freelance estimator or PM",
-              features: ["Up to 5 projects/mo", "XLSX/CSV export", "Rate library"],
-              cta: "Start trial"
-            },{
-              name: "Team",
-              price: "£499/mo",
-              blurb: "3–10 users",
-              features: ["Unlimited projects", "Shared rate libraries", "Review & lock"],
-              cta: "Book a demo"
-            },{
-              name: "Enterprise",
-              price: "Custom",
-              blurb: "Larger orgs & on‑prem",
-              features: ["SSO, audit & logs", "Private cloud / on‑prem", "API & support SLAs"],
-              cta: "Talk to sales"
-            }].map((p, i) => (
-              <Card key={i}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold">{p.name}</h3>
-                    <p className="text-slate-600 text-sm">{p.blurb}</p>
+        </section>
+
+        {/* Features */}
+        <section id="features" className="py-16 bg-white border-y border-slate-200">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Built for rail & civils estimating
+            </h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  title: "Drawing takeoffs",
+                  desc: "Extract quantities directly from PDFs/CAD with AI-assisted selection and snapping."
+                },
+                {
+                  title: "Excel-ready outputs",
+                  desc: "Standardised CSV/XLS exports with named items, units, and breakdowns."
+                },
+                {
+                  title: "Repeatable templates",
+                  desc: "Store item libraries and mapping to keep outputs consistent across projects."
+                },
+                {
+                  title: "Team review",
+                  desc: "Track changes, comments, and approvals so QA is fast and visible."
+                },
+                {
+                  title: "UK data hosting",
+                  desc: "Optional UK-only hosting for sensitive projects and compliance needs."
+                },
+                {
+                  title: "API & integrations",
+                  desc: "Sync with SharePoint, OneDrive, or your CDE for faster workflows."
+                }
+              ].map((f) => (
+                <div
+                  key={f.title}
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                >
+                  <h3 className="text-sm font-semibold text-slate-900">
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section id="how" className="py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
+            <ol className="mt-8 grid gap-6 sm:grid-cols-3">
+              {[
+                {
+                  step: "1",
+                  title: "Upload drawings",
+                  desc: "PDF or CAD. We detect layers and scales automatically."
+                },
+                {
+                  step: "2",
+                  title: "Mark up with AI",
+                  desc: "Use AI-assisted tools to measure, count, and categorise."
+                },
+                {
+                  step: "3",
+                  title: "Export to Excel",
+                  desc: "Configured item names, units, and quantities ready for pricing."
+                }
+              ].map((s) => (
+                <li
+                  key={s.step}
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                >
+                  <div className="h-8 w-8 rounded-full bg-slate-900 text-white grid place-items-center text-xs font-bold">
+                    {s.step}
                   </div>
-                  <div className="text-2xl font-extrabold">{p.price}</div>
-                </div>
-                <ul className="mt-4 space-y-2 text-sm">
-                  {p.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2"><Check className="h-4 w-4"/>{f}</li>
-                  ))}
-                </ul>
-                <div className="mt-6">
-                  <Button href="#contact" className="bg-slate-900 text-white w-full">{p.cta}</Button>
-                </div>
-              </Card>
-            ))}
+                  <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600">{s.desc}</p>
+                </li>
+              ))}
+            </ol>
           </div>
-        </Container>
-      </section>
+        </section>
 
-  {/* CONTACT */}
-{/* CONTACT */}
-<section id="contact" className="py-16">
-  <Container>
-    <Card>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <h3 className="text-2xl font-bold">Book a discovery call</h3>
-          <p className="text-slate-600 mt-2">
-            Tell us about your estimating workflow. We’ll show you how RailQuant can help.
-          </p>
-          <ul className="mt-4 space-y-2 text-sm">
-            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> NDA available</li>
-            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> UK-based data hosting option</li>
-            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel-first outputs</li>
-          </ul>
-        </div>
+        {/* Pricing */}
+        <section id="pricing" className="py-16 bg-white border-t border-slate-200">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  name: "Starter",
+                  price: "£0",
+                  note: "Pilot projects",
+                  features: ["Up to 2 projects", "Excel export", "Email support"]
+                },
+                {
+                  name: "Pro",
+                  price: "£149",
+                  note: "Per seat / month",
+                  features: [
+                    "Unlimited projects",
+                    "Templates & libraries",
+                    "Priority support"
+                  ]
+                },
+                {
+                  name: "Team",
+                  price: "Custom",
+                  note: "For organisations",
+                  features: [
+                    "SAML/SSO",
+                    "UK-only hosting option",
+                    "Onboarding & training"
+                  ]
+                }
+              ].map((p) => (
+                <div
+                  key={p.name}
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col"
+                >
+                  <h3 className="text-sm font-semibold text-slate-900">{p.name}</h3>
+                  <div className="mt-2 text-3xl font-bold text-slate-900">
+                    {p.price}
+                  </div>
+                  <div className="text-xs text-slate-500">{p.note}</div>
+                  <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                    {p.features.map((f) => (
+                      <li key={f}>• {f}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#contact"
+                    className="mt-6 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+                  >
+                    Start trial
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        {/* RIGHT: the form */}
-        <form action="https://api.web3forms.com/submit" method="POST" className="space-y-3">
-          {/* Required Web3Forms fields */}
-          <input type="hidden" name="access_key" value="01455b6d-f87d-4204-bd9e-f6671858f113" />
-          <input type="hidden" name="subject" value="New RailQuant Enquiry" />
-          <input type="hidden" name="from_name" value="RailQuant Website" />
-          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
-<input type="hidden" name="from_name" value="RailQuant Landing" />
-<input type="hidden" name="redirect" value="https://web3forms.com/success" />
-{/* Honeypot (leave empty) */}
-<input
-  type="text"
-  name="botcheck"
-  autoComplete="off"
-  tabIndex={-1}
-  className="sr-only"
-  aria-hidden="true"
-/>
+        {/* Contact */}
+        <section id="contact" className="py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div>
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  Book a discovery call
+                </h2>
+                <p className="mt-2 text-slate-600 text-sm">
+                  Tell us about your estimating workflow. We’ll show how RailQuant
+                  can help.
+                </p>
+                <ul className="mt-6 space-y-2 text-sm text-slate-600">
+                  <li>✓ NDA available</li>
+                  <li>✓ UK-based data hosting option</li>
+                  <li>✓ Excel-first outputs</li>
+                </ul>
+              </div>
 
+              {/* Simple form (no backend dependency here) */}
+              <form
+                action="https://api.web3forms.com/submit"
+                method="POST"
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                {/* Replace with your Web3Forms Access Key if you use Web3Forms */}
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value="01455b6d-f87d-4204-bd9e-f6671858f113"
+                />
 
-<input name="email" type="email" required />
-<input name="name" required />
-<textarea name="message" minLength="10" required />
-<input name="email" type="email" required />
-<input name="name" required />
-<textarea name="message" minLength="10" required />
+                {/* Honeypot */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
 
-          <input
-            className="rounded-xl border px-4 py-3 w-full"
-            name="name"
-            placeholder="Name"
-            required
-          />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input
+                    className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                    placeholder="Name"
+                    name="name"
+                    required
+                  />
+                  <input
+                    className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                    required
+                  />
+                  <textarea
+                    className="sm:col-span-2 h-32 rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                    placeholder="What drawings do you work with?"
+                    name="message"
+                    rows={4}
+                    required
+                  />
+                </div>
 
-          <input
-            className="rounded-xl border px-4 py-3 w-full"
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
+                <button
+                  type="submit"
+                  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+                >
+                  Send
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
 
-          <textarea
-            className="rounded-xl border px-4 py-3 w-full"
-            name="message"
-            rows={4}
-            placeholder="What drawings do you work with?"
-            required
-          />
-
-          <button
-            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-            type="submit"
-          >
-            Send
-          </button>
-        </form>
-      </div> {/* closes grid */}
-    </Card>
-  </Container>
-</section>
-
-{/* Close <main> once (if you opened it above) */}
-{/* </main> */}
-
-<footer className="py-10 text-center text-xs text-slate-500">
-  © {new Date().getFullYear()} RailQuant AI. All rights reserved.
-</footer>
-
-
-</div>
-);
+      {/* Footer */}
+      <footer className="py-10 text-center text-xs text-slate-500">
+        © {new Date().getFullYear()} RailQuant AI. All rights reserved.
+      </footer>
+    </div>
+  );
 }
-
-
