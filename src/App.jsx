@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
+// App.jsx
 import posts from "./posts.js";
-
-
 export default function App() {
   const latest = [...posts]
   .sort((a, b) => new Date(b.date) - new Date(a.date))
