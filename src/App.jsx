@@ -239,71 +239,68 @@ export default function App() {
   <Container>
     <Card>
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Left column: text & bullets */}
         <div>
           <h3 className="text-2xl font-bold">Book a discovery call</h3>
-          <p className="text-slate-600 mt-2 text-sm">
+          <p className="text-slate-600 mt-2">
             Tell us about your estimating workflow. We’ll show you how RailQuant can help.
           </p>
           <ul className="mt-4 space-y-2 text-sm">
-            <li className="flex items-center gap-2"><Check className="h-4 w-4" /> NDA available</li>
-            <li className="flex items-center gap-2"><Check className="h-4 w-4" /> UK-based data hosting option</li>
-            <li className="flex items-center gap-2"><Check className="h-4 w-4" /> Excel-first outputs</li>
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> NDA available</li>
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> UK-based data hosting option</li>
+            <li className="flex items-center gap-2"><Check className="h-4 w-4"/> Excel-first outputs</li>
           </ul>
         </div>
 
-        {/* Right column: form */}
-      <form action="https://api.web3forms.com/submit" method="POST">
-  {/* Required Web3Forms access key */}
-  <input type="hidden" name="access_key" value="01455b6d-f87d-4204-bd9e-f6671858f113" />
+        {/* RIGHT: the form */}
+        <form action="https://api.web3forms.com/submit" method="POST" className="space-y-3">
+          {/* Required Web3Forms fields */}
+          <input type="hidden" name="access_key" value="01455b6d-f87d-4204-bd9e-f6671858f113" />
+          <input type="hidden" name="subject" value="New RailQuant Enquiry" />
+          <input type="hidden" name="from_name" value="RailQuant Website" />
+          <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
-  {/* Optional settings */}
-  <input type="hidden" name="subject" value="New RailQuant Enquiry" />
-  <input type="hidden" name="from_name" value="RailQuant Website" />
-  <input type="hidden" name="redirect" value="https://railquant-landing.vercel.app/?sent=1" />
-  <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+          <input
+            className="rounded-xl border px-4 py-3 w-full"
+            name="name"
+            placeholder="Name"
+            required
+          />
 
-  <input
-    className="rounded-xl border px-4 py-3"
-    name="name"
-    placeholder="Name"
-    required
-  />
+          <input
+            className="rounded-xl border px-4 py-3 w-full"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
 
-  <input
-    className="rounded-xl border px-4 py-3"
-    type="email"
-    name="email"
-    placeholder="Email"
-    required
-  />
+          <textarea
+            className="rounded-xl border px-4 py-3 w-full"
+            name="message"
+            rows={4}
+            placeholder="What drawings do you work with?"
+            required
+          />
 
-  <textarea
-    className="rounded-xl border px-4 py-3"
-    name="message"
-    rows={4}
-    placeholder="What drawings do you work with?"
-    required
-  />
-
-  <button
-    className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
-    type="submit"
-  >
-    Send
-  </button>
-</form>
-
-
+          <button
+            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold shadow-sm hover:shadow transition"
+            type="submit"
+          >
+            Send
+          </button>
         </form>
-      </div>{/* closes the grid wrapper */}
+      </div> {/* closes grid */}
     </Card>
   </Container>
 </section>
 
+{/* Close <main> once (if you opened it above) */}
+{/* </main> */}
+
 <footer className="py-10 text-center text-xs text-slate-500">
   © {new Date().getFullYear()} RailQuant AI. All rights reserved.
 </footer>
+
 
 </div>
 );
