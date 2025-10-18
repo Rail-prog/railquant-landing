@@ -1,5 +1,5 @@
-import { useParams, Link } from 'react-router-dom';
-import posts from './posts.js'; 
+import { useParams, Link } from "react-router-dom";
+import posts from "./posts.js";
 
 export default function Post() {
   const { slug } = useParams();
@@ -31,4 +31,5 @@ export default function Post() {
   );
 }
 
+     
 
