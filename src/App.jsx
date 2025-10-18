@@ -260,14 +260,16 @@ export default function App() {
           <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 <input type="hidden" name="from_name" value="RailQuant Landing" />
 <input type="hidden" name="redirect" value="https://web3forms.com/success" />
-{/* Honeypot (spam trap) */}
+{/* Honeypot (leave empty) */}
 <input
-  type="checkbox"
+  type="text"
   name="botcheck"
-  className="hidden"
-  tabIndex={-1}
   autoComplete="off"
+  tabIndex={-1}
+  className="sr-only"
+  aria-hidden="true"
 />
+
 
 <input name="email" type="email" required />
 <input name="name" required />
