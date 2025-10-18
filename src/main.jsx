@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
 import posts from './posts.js';
-
 export default function Post() {
   const { slug } = useParams();
   const post = posts.find((p) => p.slug === slug);
