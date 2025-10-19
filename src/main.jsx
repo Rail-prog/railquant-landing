@@ -13,11 +13,11 @@ createRoot(document.getElementById("root")).render(
       <Route path="/" element={<App />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/post/:slug" element={<Post />} />
-      {/* Fallback route */}
       <Route path="*" element={<App />} />
     </Routes>
   </BrowserRouter>
 );
+
 
 
 
