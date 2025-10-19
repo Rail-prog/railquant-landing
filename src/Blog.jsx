@@ -7,7 +7,7 @@ export default function Blog() {
   );
 
   return (
-    <main className="max-w-4xl mx-auto py-10 px-4">
+    <main className="max-w-3xl mx-auto py-10 px-4">
       <h1 className="text-3xl font-bold mb-6 text-slate-900">Blog</h1>
 
       <div className="space-y-6">
@@ -17,30 +17,32 @@ export default function Blog() {
             className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
           >
             <h2 className="text-xl font-semibold">
-              <Link to={`/post/${p.slug}`} className="hover:underline">
+              <Link
+                to={`/post/${p.slug}`}
+                className="text-blue-600 hover:underline"
+              >
                 {p.title}
               </Link>
             </h2>
-            <p className="text-xs text-slate-500 mt-1 mb-3">
+
+            <p className="text-sm text-slate-500 mb-2">
               {new Date(p.date).toLocaleDateString()}
             </p>
-            <p className="text-slate-700">
-              {p.content.replace(/\s+/g, " ").trim().slice(0, 160)}…
+
+            <p className="text-slate-700 mb-4">
+              {p.content.slice(0, 120)}…
             </p>
-            <div className="mt-3">
-              <Link to={`/post/${p.slug}`} className="underline text-slate-900">
-                Read more →
-              </Link>
-            </div>
+
+            <Link
+              to={`/post/${p.slug}`}
+              className="text-blue-600 hover:underline text-sm"
+            >
+              Read more →
+            </Link>
           </article>
         ))}
       </div>
-
-      <p className="mt-8">
-        <Link to="/" className="underline">
-          ← Back to home
-        </Link>
-      </p>
     </main>
   );
 }
+
