@@ -9,9 +9,7 @@ export default function Post() {
     return (
       <section className="max-w-3xl mx-auto py-10 px-4">
         <p className="mb-4">Post not found.</p>
-        <Link to="/blog" className="underline">
-          ← Back to blog
-        </Link>
+        <Link to="/blog" className="underline">← Back to blog</Link>
       </section>
     );
   }
@@ -19,15 +17,10 @@ export default function Post() {
   return (
     <article className="max-w-3xl mx-auto py-10 px-4">
       <p className="text-sm text-slate-500 mb-2">
-        <Link to="/blog" className="underline">
-          ← Back to blog
-        </Link>
+        <Link to="/blog" className="underline">← Back to blog</Link>
       </p>
       <h1 className="text-3xl font-bold text-slate-900">{post.title}</h1>
-      <p className="text-xs text-slate-500 mt-1 mb-6">
-        {new Date(post.date).toLocaleDateString()}
-      </p>
-
+      <p className="text-xs text-slate-500 mt-1 mb-6">{new Date(post.date).toLocaleDateString()}</p>
       <div className="prose max-w-none text-slate-800">
         <p>{post.content}</p>
       </div>
