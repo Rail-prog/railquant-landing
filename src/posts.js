@@ -2,31 +2,26 @@ const posts = [
   {
     slug: "rail-estimating-101",
     title: "Rail Estimating 101: From Drawings to Quantities",
-    date: "12/10/2025",
-    excerpt:
-      "Estimating for rail projects starts with PDFs or CAD drawings. The fast path is to extract quantities with repeatable templates...",
-    body:
-      "Long-form content goes here. Explain your methodology and the benefits of automation for rail estimating."
+    date: "2025-10-12",
+    content:
+      "Estimating for rail projects starts with PDFs or CAD drawings. The fast path is to extract quantities with repeatable logic and keep outputs consistent for pricing. In this article, we explore the core steps of taking drawings and converting them into billable items with accuracy."
   },
   {
-    slug: "ai-speed-drawing-takeoffs",
+    slug: "ai-for-takeoffs",
     title: "How AI Can Speed Up Drawing Takeoffs",
-    date: "10/10/2025",
-    excerpt:
-      "Drawing takeoff is one of the most time-consuming steps in estimating. With AI-assisted measurement, snapping, and object detection…",
-    body:
-      "Long-form content for this post. Describe AI tooling, snapping, layer detection, etc."
+    date: "2025-10-10",
+    content:
+      "Drawing takeoff is one of the most time-consuming steps in estimating. With AI-assisted measurement, snapping, and object detection, estimators can drastically reduce the manual workload. Let’s look at how AI helps automate the process while keeping full control."
   },
   {
     slug: "excel-ready-outputs",
     title: "Why Excel-Ready Outputs Matter in Estimating",
-    date: "08/10/2025",
-    excerpt:
-      "Most estimating still ends up in Excel. Having consistent, structured outputs makes pricing and cost analysis faster…",
-    body:
-      "Long-form content. Explain breakdowns, units, naming, and team workflows."
+    date: "2025-10-08",
+    content:
+      "Most estimating still ends up in Excel. Having consistent, structured, and named outputs makes pricing and cost planning much faster. In this post, we break down what 'Excel-ready' really means and how templates help scale your workflow."
   }
 ];
 
 export default posts;
+
 
