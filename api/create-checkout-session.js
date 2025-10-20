@@ -1,32 +1,33 @@
 import Stripe from "stripe";
 
-// Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID in Vercel Project → Settings → Environment Variables
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(405).json({ error: "Method not allowed" });
-    return;
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
+    const { priceId, mode = "subscription" } = req.body || {};
+
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return res.status(500).json({ error: "Missing STRIPE_SECRET_KEY" });
+    }
+    if (!priceId) {
+      return res.status(400).json({ error: "Missing priceId" });
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
     const session = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: process.env.STRIPE_PRICE_ID, // e.g. "price_1SK3vC0Z7E068IehR4NCOpIx"
-          quantity: 1
-        }
-      ],
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://railquant.co.uk"}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://railquant.co.uk"}/cancel`
+      mode,
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/cancel`
     });
 
-    res.status(200).json({ url: session.url });
+    return res.status(200).json({ id: session.id });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Unable to create checkout session" });
+    return res.status(500).json({ error: err.message || "Stripe error" });
   }
 }
-
