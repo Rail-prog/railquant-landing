@@ -1,9 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App.jsx";
+import App from "./components/App.jsx";
 
-// IMPORTANT: this line makes Tailwind load
+// This import is what makes Tailwind styles appear
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
@@ -11,6 +11,7 @@ createRoot(document.getElementById("root")).render(
     <App />
   </BrowserRouter>
 );
+
 
 
 
