@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import posts from "./posts.js";
+import posts from "../posts.js";
 
 export default function Post() {
   const { slug } = useParams();
@@ -7,27 +7,22 @@ export default function Post() {
 
   if (!post) {
     return (
-      <section className="max-w-3xl mx-auto py-10 px-4">
-        <p className="mb-4">Post not found.</p>
-        <Link to="/blog" className="underline">← Back to blog</Link>
-      </section>
+      <main className="mx-auto max-w-3xl px-4 py-16">
+        <p className="text-slate-700">Post not found.</p>
+        <Link to="/blog" className="text-slate-900 underline">Go back</Link>
+      </main>
     );
   }
 
   return (
-    <article className="max-w-3xl mx-auto py-10 px-4">
-      <p className="text-sm text-slate-500 mb-2">
-        <Link to="/blog" className="underline">← Back to blog</Link>
-      </p>
-      <h1 className="text-3xl font-bold text-slate-900">{post.title}</h1>
-      <p className="text-xs text-slate-500 mt-1 mb-6">
-        {new Date(post.date).toLocaleDateString()}
-      </p>
-      <div className="prose max-w-none text-slate-800">
-        <p>{post.content}</p>
-      </div>
-    </article>
+    <main className="mx-auto max-w-3xl px-4 py-16 prose prose-slate">
+      <h1>{post.title}</h1>
+      <p className="text-xs">{new Date(post.date).toLocaleDateString()}</p>
+      <p>{post.content}</p>
+      <p><Link to="/blog" className="text-slate-900 underline">← Back to all posts</Link></p>
+    </main>
   );
 }
+
 
   
