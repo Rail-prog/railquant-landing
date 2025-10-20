@@ -1,13 +1,11 @@
-// src/Success.jsx
 export default function Success() {
   return (
-    <main className="max-w-3xl mx-auto py-16 px-4">
-      <h1 className="text-3xl font-bold text-slate-900">Subscription active 🎉</h1>
-      <p className="mt-4 text-slate-600">
-        Thanks for subscribing to RailQuant AI. You’ll get a welcome email shortly.
-      </p>
-      <a href="/" className="mt-6 inline-block underline">Back to home</a>
-    </main>
+    <div style={{ textAlign: "center", padding: "50px" }}>
+      <h1>✅ Payment Successful!</h1>
+      <p>Thank you for subscribing to RailQuant AI.</p>
+      <p>You now have full access to premium features.</p>
+      <a href="/">Go back to Home</a>
+    </div>
   );
 }
 
