@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 
 export default function Success() {
   return (
-    <section className="container py-16 text-center">
-      <h1 className="h1">🎉 Subscription confirmed</h1>
-      <p className="mt-4 text-slate-600">
-        Thanks for subscribing. We’ve sent a confirmation email.
+    <main className="max-w-2xl mx-auto py-10 px-4 text-center">
+      <h1 className="text-3xl font-bold mb-3">Thanks — payment successful!</h1>
+      <p className="text-slate-600 mb-6">
+        You’ll also receive an email receipt.
       </p>
-      <Link className="btn btn-primary mt-8" to="/">Back to site</Link>
-    </section>
+      <Link to="/" className="underline">← Back to homepage</Link>
+    </main>
   );
 }
+
 
