@@ -1,87 +1,92 @@
-import { Link } from "react-router-dom";
-import posts from "./posts.js";
-import SubscribeButton from "./components/SubscribeButton.jsx";
+// src/App.jsx
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Success from "./Success";
+import Cancel from "./Cancel";
+import { stripePromise } from "./stripe";
 
-export default function App() {
-  const sorted = [...posts].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+function Home() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubscribe = async () => {
+    try {
+      setLoading(true);
+      const stripe = await stripePromise;
+
+      const resp = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // Set your Price ID in Vercel as VITE_STRIPE_PRICE_PRO
+        body: JSON.stringify({ priceId: import.meta.env.VITE_STRIPE_PRICE_PRO }),
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        throw new Error(data?.error || "Checkout failed");
+      }
+
+      // We return a URL from the API to redirect to Stripe Checkout
+      window.location.href = data.url || data.sessionUrl;
+    } catch (err) {
+      alert(`Checkout failed: ${err.message}`);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <main className="max-w-4xl mx-auto py-10 px-4">
-      {/* HERO SECTION */}
-      <section className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4">
-          AI software for rail construction estimating and drawing takeoffs.
-        </h1>
-        <p className="text-lg text-slate-600 mb-6">
-          Speed up quantities, reduce manual errors, and deliver Excel-ready
-          outputs. Built for rail and civils estimators who need accuracy and
-          repeatability.
-        </p>
+    <main style={{ maxWidth: 980, margin: "40px auto", padding: "0 16px" }}>
+      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>RailQuant AI</h1>
+        <nav style={{ display: "flex", gap: 16 }}>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <Link to="/success">Success (test)</Link>
+          <Link to="/cancel">Cancel (test)</Link>
+        </nav>
+      </header>
 
-        <div className="flex gap-4 justify-center">
-          <Link
-            to="/contact"
-            className="rounded-lg px-4 py-2 font-medium bg-slate-900 text-white hover:bg-slate-700"
+      <section style={{ textAlign: "center", marginTop: 60 }}>
+        <h2>AI software for rail construction estimating and drawing takeoffs.</h2>
+        <p>Speed up quantities, reduce manual errors, and deliver Excel-ready outputs.</p>
+
+        <div style={{ marginTop: 24, display: "flex", gap: 12, justifyContent: "center" }}>
+          <a className="btn" href="#contact">Book a discovery call</a>
+          <button
+            onClick={handleSubscribe}
+            disabled={loading}
+            style={{
+              padding: "10px 16px",
+              borderRadius: 8,
+              border: "1px solid #111",
+              background: "#111",
+              color: "#fff",
+              cursor: "pointer",
+              opacity: loading ? 0.7 : 1
+            }}
           >
-            Book a discovery call
-          </Link>
-
-          <Link
-            to="/blog"
-            className="rounded-lg px-4 py-2 bg-slate-100 hover:bg-slate-200"
-          >
-            Read product updates
-          </Link>
-
-          {/* ✅ PAYMENT BUTTON ADDED HERE */}
-          <SubscribeButton label="Start subscription" />
-        </div>
-
-        <p className="mt-4 text-sm text-slate-500">
-          NDA available • UK-based data hosting option • Excel-first outputs
-        </p>
-      </section>
-
-      {/* LATEST INSIGHTS / BLOG SECTION */}
-      <section>
-        <h2 className="text-2xl font-bold mb-6">Latest insights</h2>
-
-        <div className="space-y-6">
-          {sorted.slice(0, 3).map((p) => (
-            <article
-              key={p.slug}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
-              <h2 className="text-xl font-semibold">
-                {p.title}
-              </h2>
-              <p className="text-sm text-slate-500 mb-2">
-                {new Date(p.date).toLocaleDateString()}
-              </p>
-              <p className="text-slate-600 mb-4">
-                {p.content.substring(0, 120)}…
-              </p>
-              <Link
-                to={`/post/${p.slug}`}
-                className="text-slate-900 underline hover:no-underline"
-              >
-                Read more →
-              </Link>
-            </article>
-          ))}
-        </div>
-
-        <div className="text-center mt-6">
-          <Link
-            to="/blog"
-            className="text-slate-900 underline hover:no-underline"
-          >
-            View all
-          </Link>
+            {loading ? "Redirecting..." : "Start subscription"}
+          </button>
         </div>
       </section>
+
+      {/* Add your other sections (features, pricing, blog, etc.) here */}
     </main>
   );
 }
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+      </Routes>
+    </Router>
+  );
+}
+
+
