@@ -3,17 +3,5 @@
 @tailwind components;
 @tailwind utilities;
 
-/* App-wide defaults */
-html, body, #root {
-  height: 100%;
-}
-
-@layer base {
-  body {
-    @apply bg-slate-50 text-slate-900 antialiased;
-  }
-
-  a {
-    @apply text-slate-900;
-  }
-}
+/* optional global tweaks */
+html, body, #root { height: 100%; }
