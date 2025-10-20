@@ -1,13 +1,13 @@
-import React from 'react';
-
+// src/main.jsx
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import "./index.css";
 import App from "./App.jsx";
 import Blog from "./Blog.jsx";
 import Post from "./Post.jsx";
-
-import "./index.css";
+import Success from "./Success.jsx";
+import Cancel from "./Cancel.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -15,10 +15,14 @@ createRoot(document.getElementById("root")).render(
       <Route path="/" element={<App />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/post/:slug" element={<Post />} />
+      <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
+      {/* Fallback */}
       <Route path="*" element={<App />} />
     </Routes>
   </BrowserRouter>
 );
+
 
 
 
