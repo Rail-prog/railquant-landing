@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional tiny tweaks */
-html, body, #root {
-  height: 100%;
+/* optional: small base styles */
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-slate-50 text-slate-800; }
 }
+
 
 
