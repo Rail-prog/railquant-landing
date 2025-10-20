@@ -1,34 +1,32 @@
 import Stripe from "stripe";
 
+// Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID in Vercel Project → Settings → Environment Variables
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if (!secret) {
-    return res.status(500).json({
-      error:
-        "Server misconfiguration: STRIPE_SECRET_KEY is missing. Set it in Vercel → Project → Settings → Environment Variables and redeploy."
-    });
+    res.status(405).json({ error: "Method not allowed" });
+    return;
   }
 
   try {
-    const stripe = new Stripe(secret, { apiVersion: "2024-06-20" });
-
-    const { priceId, success_url, cancel_url } = req.body ?? {};
-    if (!priceId) return res.status(400).json({ error: "Missing priceId" });
-
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: success_url || `${req.headers.origin}/success`,
-      cancel_url: cancel_url || `${req.headers.origin}/cancel`,
-      allow_promotion_codes: true
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: process.env.STRIPE_PRICE_ID, // e.g. "price_1SK3vC0Z7E068IehR4NCOpIx"
+          quantity: 1
+        }
+      ],
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://railquant.co.uk"}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_PROJECT_PRODUCTION_URL || "https://railquant.co.uk"}/cancel`
     });
 
-    res.status(200).json({ id: session.id });
+    res.status(200).json({ url: session.url });
   } catch (err) {
-    res.status(500).json({ error: err.message || "FUNCTION_INVOCATION_FAILED" });
+    console.error(err);
+    res.status(500).json({ error: "Unable to create checkout session" });
   }
 }
+
