@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import posts from "./posts.js";
+import { Link } from "react-router-dom";
+
 import { stripePromise } from "./stripe.js"; // if you actually use stripePromise in App.jsx
 
 import posts from "./posts.js";
