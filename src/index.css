@@ -1,7 +1,29 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* optional global tweaks */
-html, body, #root { height: 100%; }
+/* Small helpers */
+.container {
+  @apply mx-auto max-w-6xl px-4;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-semibold;
+}
+.btn-primary {
+  @apply bg-slate-900 text-white hover:bg-slate-800;
+}
+.btn-secondary {
+  @apply bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50;
+}
+
+.h1 {
+  @apply text-4xl font-extrabold tracking-tight sm:text-5xl;
+}
+.h2 {
+  @apply text-2xl font-semibold tracking-tight sm:text-3xl;
+}
+
+.card {
+  @apply rounded-xl border border-slate-200 bg-white p-6 shadow-sm;
+}
