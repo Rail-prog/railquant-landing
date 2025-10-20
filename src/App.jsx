@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
 import posts from "./posts"; // keep your blog posts file
-import "./App.css";
+
 
 // ✅ Pages
 function Home() {
