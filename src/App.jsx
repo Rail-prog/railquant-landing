@@ -1,3 +1,4 @@
+import posts from "./posts.js";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Blog from "./Blog.jsx";
 import Post from "./Post.jsx";
