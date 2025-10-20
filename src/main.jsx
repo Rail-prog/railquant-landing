@@ -1,16 +1,14 @@
-import React from "react";
+// src/main.jsx
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import "./index.css";
-import App from "./components/App.jsx";
+import App from "./App.jsx";   // <-- FIXED: no "components/" prefix
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
+
 
 
 
