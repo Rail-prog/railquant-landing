@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
+import posts from "./posts.js";
+import { stripePromise } from "./stripe.js"; // if you actually use stripePromise in App.jsx
+
 import posts from "./posts.js";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Blog from "./Blog.jsx";
 import Post from "./Post.jsx";
 import Success from "./Success.jsx";
 import Cancel from "./Cancel.jsx";
-import posts from "../posts.js";
+
 import { stripePromise } from "../stripe.js";
 
 function Navbar() {
