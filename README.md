@@ -5,7 +5,7 @@ This is a production-ready landing page to collect leads and start selling **tod
 ## Quick Start (local)
 1. Install Node 18+
 2. `npm i`
-3. `npm run dev`
+3. `npm run dev` 
 
 ## Deploy to Vercel (recommended)
 1. Create a repo (GitHub).
