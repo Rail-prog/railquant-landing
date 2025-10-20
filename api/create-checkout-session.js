@@ -2,17 +2,18 @@ import Stripe from "stripe";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(405).json({ error: "Method Not Allowed" });
-    return;
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2024-06-20", // or omit to use default
+    });
 
     const { priceId, success_url, cancel_url } = req.body ?? {};
+
     if (!priceId) {
-      res.status(400).json({ error: "Missing priceId" });
-      return;
+      return res.status(400).json({ error: "Missing priceId" });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -23,9 +24,10 @@ export default async function handler(req, res) {
       allow_promotion_codes: true,
     });
 
-    res.status(200).json({ url: session.url });
+    return res.status(200).json({ url: session.url });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error("Stripe checkout error:", err);
+    return res.status(500).json({ error: err.message || "Server error" });
   }
 }
 
