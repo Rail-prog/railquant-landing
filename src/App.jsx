@@ -1,92 +1,121 @@
-// src/App.jsx
+import { Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Success from "./Success";
-import Cancel from "./Cancel";
-import { stripePromise } from "./stripe";
+import posts from "./posts"; // keep your blog posts file
+import "./App.css";
 
+// ✅ Pages
 function Home() {
   const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = async () => {
+  const startCheckout = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const stripe = await stripePromise;
-
-      const resp = await fetch("/api/create-checkout-session", {
+      const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Set your Price ID in Vercel as VITE_STRIPE_PRICE_PRO
-        body: JSON.stringify({ priceId: import.meta.env.VITE_STRIPE_PRICE_PRO }),
+        body: JSON.stringify({
+          priceId: import.meta.env.VITE_STRIPE_PRICE_PRO,
+        }),
       });
 
-      const data = await resp.json();
-
-      if (!resp.ok) {
-        throw new Error(data?.error || "Checkout failed");
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Checkout failed.");
       }
-
-      // We return a URL from the API to redirect to Stripe Checkout
-      window.location.href = data.url || data.sessionUrl;
     } catch (err) {
-      alert(`Checkout failed: ${err.message}`);
       console.error(err);
+      alert("Error connecting to server");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main style={{ maxWidth: 980, margin: "40px auto", padding: "0 16px" }}>
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h1>RailQuant AI</h1>
-        <nav style={{ display: "flex", gap: 16 }}>
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <Link to="/success">Success (test)</Link>
-          <Link to="/cancel">Cancel (test)</Link>
-        </nav>
-      </header>
+    <div>
+      <h1>AI software for rail construction estimating and drawing takeoffs.</h1>
+      <p>
+        Speed up quantities, reduce manual errors, and deliver Excel-ready
+        outputs. Built for rail and civils estimators who need accuracy and
+        repeatability.
+      </p>
 
-      <section style={{ textAlign: "center", marginTop: 60 }}>
-        <h2>AI software for rail construction estimating and drawing takeoffs.</h2>
-        <p>Speed up quantities, reduce manual errors, and deliver Excel-ready outputs.</p>
+      <button>Book a discovery call</button>
+      <button>Read product updates</button>
 
-        <div style={{ marginTop: 24, display: "flex", gap: 12, justifyContent: "center" }}>
-          <a className="btn" href="#contact">Book a discovery call</a>
-          <button
-            onClick={handleSubscribe}
-            disabled={loading}
-            style={{
-              padding: "10px 16px",
-              borderRadius: 8,
-              border: "1px solid #111",
-              background: "#111",
-              color: "#fff",
-              cursor: "pointer",
-              opacity: loading ? 0.7 : 1
-            }}
-          >
-            {loading ? "Redirecting..." : "Start subscription"}
-          </button>
+      <button onClick={startCheckout} disabled={loading}>
+        {loading ? "Redirecting..." : "Start subscription"}
+      </button>
+
+      <h2>Latest insights</h2>
+      {posts.map((post, idx) => (
+        <div key={idx} className="post-card">
+          <h3>{post.title}</h3>
+          <p>{post.excerpt}</p>
+          <Link to={`/blog/${idx}`}>Read more →</Link>
         </div>
-      </section>
+      ))}
+    </div>
+  );
+}
 
-      {/* Add your other sections (features, pricing, blog, etc.) here */}
-    </main>
+function SuccessPage() {
+  return (
+    <div style={{ padding: "50px", textAlign: "center" }}>
+      <h1>✅ Subscription Successful!</h1>
+      <p>Thank you for subscribing. You now have access to RailQuant AI.</p>
+      <Link to="/">Go back home</Link>
+    </div>
+  );
+}
+
+function CancelPage() {
+  return (
+    <div style={{ padding: "50px", textAlign: "center" }}>
+      <h1>❌ Subscription Cancelled</h1>
+      <p>Your subscription was not completed. You can try again anytime.</p>
+      <Link to="/">Return to Home</Link>
+    </div>
+  );
+}
+
+function BlogPostPage({ id }) {
+  const post = posts[id];
+  if (!post) return <h2>Post not found</h2>;
+
+  return (
+    <div style={{ padding: "40px" }}>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+      <Link to="/">← Back</Link>
+    </div>
   );
 }
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/cancel" element={<Cancel />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/success" element={<SuccessPage />} />
+      <Route path="/cancel" element={<CancelPage />} />
+      <Route
+        path="/blog/:id"
+        element={
+          <RouteRenderer
+            render={({ id }) => <BlogPostPage id={id} />}
+          />
+        }
+      />
+    </Routes>
   );
+}
+
+// Helper component to read URL params using a render function
+import { useParams } from "react-router-dom";
+function RouteRenderer({ render }) {
+  const params = useParams();
+  return render(params);
 }
 
 
