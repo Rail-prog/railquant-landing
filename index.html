@@ -1,79 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RailQuant AI — AI software for rail construction estimating</title>
 
-    <!-- Primary SEO -->
-    <title>RailQuant AI — Rail Construction Estimating & Drawing Takeoffs</title>
-    <meta
-      name="description"
-      content="AI software for rail construction estimating and drawing takeoffs. Automate quantity extraction from CAD/PDFs and generate Excel-ready outputs — built for rail and civils estimators who need speed, accuracy, and repeatability."
-    />
-    <meta
-      name="keywords"
-      content="rail estimating software, AI takeoff tool, civil estimating, PDF quantity extraction, CAD measurement, Network Rail estimating, UK rail civils, Excel quantity outputs"
-    />
-    <link rel="canonical" href="https://railquant.co.uk/" />
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="RailQuant AI — AI software for rail construction estimating and takeoffs" />
+    <meta name="description" content="AI-powered estimating platform for rail and civils. Generate Excel-ready quantities, automate PDF/CAD takeoffs, and standardise outputs for pricing teams." />
+    <meta name="author" content="RailQuant AI" />
+    <meta name="robots" content="index,follow" />
 
-    <!-- Open Graph (Facebook / LinkedIn / WhatsApp) -->
-    <meta property="og:title" content="RailQuant AI — Rail Construction Estimating & Drawing Takeoffs" />
-    <meta property="og:description" content="Speed up quantities, reduce manual errors, and deliver Excel-ready outputs. AI software built for rail and civils estimators." />
-    <meta property="og:url" content="https://railquant.co.uk/" />
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://railquant.co.uk/og-image.png" />
-    <meta property="og:site_name" content="RailQuant AI" />
+    <meta property="og:url" content="https://railquant.co.uk/" />
+    <meta property="og:title" content="RailQuant AI — AI software for rail estimating" />
+    <meta property="og:description" content="Accurate, repeatable takeoffs for rail and civils estimators. Built for Excel-ready outputs and UK data compliance." />
+    <meta property="og:image" content="/og-image.png" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RailQuant AI — Rail Construction Estimating & Drawing Takeoffs" />
-    <meta name="twitter:description" content="AI-powered rail estimating software delivering Excel-ready outputs and consistency across projects." />
-    <meta name="twitter:image" content="https://railquant.co.uk/og-image.png" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="RailQuant AI — AI software for rail estimating" />
+    <meta property="twitter:description" content="Accelerate your estimating workflow with AI. PDF and CAD takeoffs → Excel outputs in minutes." />
+    <meta property="twitter:image" content="/og-image.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="KnZckJjFYkczxINNmqHt8ygTuYes1Sv-L3JW" />
-
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMDWNQY4NX"></script>
+    <!-- Google Analytics 4 (replace G-SMDWNQY4WX with your measurement ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMDWNQY4WX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-SMDWNQY4NX');
+      gtag('config', 'G-SMDWNQY4WX');  /* replace with your GA4 ID */
     </script>
 
-    <!-- JSON-LD Schema (Structured Data for SEO) -->
+    <!-- Calendly → GA4 conversion tracking -->
+    <script>
+      window.addEventListener("message", function(e) {
+        if (typeof gtag !== "function") return;
+        try {
+          var data = JSON.parse(e.data);
+          if (data.event && data.event.indexOf("calendly") === 0) {
+            if (data.event === "calendly.event_scheduled") {
+              gtag("event", "generate_lead", {
+                method: "calendly",
+                event_category: "booking",
+                event_label: "Discovery call"
+              });
+            }
+          }
+        } catch (err) {}
+      });
+    </script>
+
+    <!-- JSON-LD : Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "RailQuant AI",
-      "url": "https://railquant.co.uk",
+      "url": "https://railquant.co.uk/",
       "logo": "https://railquant.co.uk/favicon.svg",
-      "sameAs": [
-        "https://www.linkedin.com/company/railquant",
-        "https://twitter.com/railquantai"
-      ],
-      "description": "AI-powered software for rail construction estimating and drawing takeoffs. Automate quantity extraction from PDFs/CAD and export Excel-ready outputs.",
-      "founder": {
-        "@type": "Person",
-        "name": "Vasile Vancea"
+      "sameAs": ["https://www.linkedin.com/company/railquant"]
+    }
+    </script>
+
+    <!-- JSON-LD : Website -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "RailQuant AI",
+      "url": "https://railquant.co.uk/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://railquant.co.uk/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
       }
     }
     </script>
 
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="/src/index.css" />
-  </head>
+    <!-- JSON-LD : SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "RailQuant AI",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://railquant.co.uk/",
+      "offers": [
+        { "@type": "Offer", "name": "Starter", "price": "0", "priceCurrency": "GBP" },
+        { "@type": "Offer", "name": "Pro", "price": "149", "priceCurrency": "GBP" },
+        { "@type": "Offer", "name": "Team", "price": "0", "priceCurrency": "GBP", "description": "Custom pricing for organisations" }
+      ]
+    }
+    </script>
 
+    <!-- JSON-LD : FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can you read quantities from PDFs and CAD drawings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. RailQuant AI assists selection, snapping, and measurement on PDFs or CAD drawings to speed up takeoffs while keeping accuracy and repeatability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you support Excel-ready outputs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Outputs are standardised CSV/XLS with named items, units, and breakdowns so pricing teams can work immediately."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is UK-only hosting available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We offer optional UK-only data hosting for compliance-sensitive projects."
+          }
+        }
+      ]
+    }
+    </script>
+
+  </head>
   <body>
     <div id="root"></div>
-
-    <!-- Vite + React main script -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+
