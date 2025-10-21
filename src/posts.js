@@ -21,5 +21,29 @@ const posts = [
       "Most estimating still ends up in Excel. Having consistent, structured, and named outputs makes pricing and cost planning much faster. In this post, we break down what 'Excel-ready' really means and how templates help scale your workflow."
   }
 ];
+export default [
+  {
+    slug: "ai-takeoffs-beta",
+    title: "AI Takeoffs Beta is Live",
+    date: "2025-10-21",
+    author: "Vasile Vancea",
+    content: `
+We’ve opened beta access for RailQuant’s AI-assisted takeoff engine.
+It detects lines, hatches, and quantities from PDF drawings automatically.
 
-export default posts;
+If you’re part of the Sizewell or Moor Street pilot teams, you’ll see this in your dashboard.
+`
+  },
+  {
+    slug: "excel-exports-update",
+    title: "Improved Excel Exports",
+    date: "2025-10-18",
+    author: "RailQuant Team",
+    content: `
+Exports now include summary sheets for each work type (UTX, LOC, drainage, civils).
+We’ve also aligned column headers with Network Rail templates.
+`
+  }
+];
+
+
