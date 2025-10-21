@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
-import ContactForm from "./components/ContactForm.jsx";
+import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 
 export default function App() {
   // latest three posts
-  const latest = useMemo(
+  const latest = React.useMemo(
     () =>
       [...posts]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -61,13 +61,11 @@ export default function App() {
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
-                AI software for rail construction estimating and drawing
-                takeoffs.
+                AI software for rail construction estimating and drawing takeoffs.
               </h1>
               <p className="mt-6 text-slate-600 leading-relaxed">
-                Speed up quantities, reduce manual errors, and deliver
-                Excel-ready outputs. Built for rail and civils estimators who
-                need accuracy and repeatability.
+                Speed up quantities, reduce manual errors, and deliver Excel-ready outputs.
+                Built for rail and civils estimators who need accuracy and repeatability.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -101,7 +99,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* FEATURES – animated cards */}
+      {/* FEATURES */}
       <section id="features" className="py-16 bg-white border-y border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">
@@ -154,42 +152,37 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
-                1
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                step: 1,
+                title: "Upload drawings",
+                desc: "PDF or CAD. We detect layers and scales automatically.",
+              },
+              {
+                step: 2,
+                title: "Mark up with AI",
+                desc: "Use AI-assisted tools to measure, count, and categorise.",
+              },
+              {
+                step: 3,
+                title: "Export to Excel",
+                desc: "Configured item names, units, and quantities ready for pricing.",
+              },
+            ].map(({ step, title, desc }) => (
+              <div
+                key={step}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
+                  {step}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">{desc}</p>
               </div>
-              <h3 className="mt-4 text-sm font-semibold text-slate-900">
-                Upload drawings
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
-                PDF or CAD. We detect layers and scales automatically.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
-                2
-              </div>
-              <h3 className="mt-4 text-sm font-semibold text-slate-900">
-                Mark up with AI
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Use AI-assisted tools to measure, count, and categorise.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
-                3
-              </div>
-              <h3 className="mt-4 text-sm font-semibold text-slate-900">
-                Export to Excel
-              </h3>
-              <p className="mt-2 text-sm text-slate-600">
-                Configured item names, units, and quantities ready for pricing.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -200,37 +193,46 @@ export default function App() {
           <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-sm font-semibold text-slate-900">Starter</h3>
-              <p className="mt-2 text-3xl font-bold">£0</p>
-              <p className="text-sm text-slate-500">Pilot projects</p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>✓ Limited features</li>
-                <li>✓ Email support</li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
-              <p className="mt-2 text-3xl font-bold">£149</p>
-              <p className="text-sm text-slate-500">Per seat / month</p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>✓ AI takeoffs</li>
-                <li>✓ Excel exports</li>
-                <li>✓ Templates</li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-sm font-semibold text-slate-900">Team</h3>
-              <p className="mt-2 text-3xl font-bold">Custom</p>
-              <p className="text-sm text-slate-500">For organisations</p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                <li>✓ SSO &amp; controls</li>
-                <li>✓ UK-only hosting option</li>
-                <li>✓ Priority support</li>
-              </ul>
-            </div>
+            {[
+              {
+                name: "Starter",
+                price: "£0",
+                note: "Pilot projects",
+                features: ["✓ Limited features", "✓ Email support"],
+              },
+              {
+                name: "Pro",
+                price: "£149",
+                note: "Per seat / month",
+                features: ["✓ AI takeoffs", "✓ Excel exports", "✓ Templates"],
+              },
+              {
+                name: "Team",
+                price: "Custom",
+                note: "For organisations",
+                features: [
+                  "✓ SSO & controls",
+                  "✓ UK-only hosting option",
+                  "✓ Priority support",
+                ],
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-sm font-semibold text-slate-900">
+                  {plan.name}
+                </h3>
+                <p className="mt-2 text-3xl font-bold">{plan.price}</p>
+                <p className="text-sm text-slate-500">{plan.note}</p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                  {plan.features.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -239,7 +241,9 @@ export default function App() {
       <section id="insights" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-slate-900">Latest insights</h2>
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Latest insights
+            </h2>
             <Link to="/blog" className="text-sm text-slate-700 underline">
               View all
             </Link>
@@ -262,7 +266,10 @@ export default function App() {
                 <p className="text-sm text-slate-600 mb-4">
                   {p.content.replace(/\s+/g, " ").trim().slice(0, 120)}…
                 </p>
-                <Link to={`/post/${p.slug}`} className="text-slate-900 underline text-sm">
+                <Link
+                  to={`/post/${p.slug}`}
+                  className="text-slate-900 underline text-sm"
+                >
                   Read more →
                 </Link>
               </article>
@@ -271,7 +278,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* CONTACT SECTION (with Calendly) */}
       <section id="contact" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-2">
@@ -280,17 +287,63 @@ export default function App() {
                 Book a discovery call
               </h2>
               <p className="mt-2 text-slate-600 text-sm">
-                Tell us about your estimating workflow. We’ll show how RailQuant can help.
+                Tell us about your estimating workflow. We’ll show how RailQuant
+                can help streamline takeoffs and reporting.
               </p>
-              <ul className="mt-6 space-y-2 text-sm text-slate-600">
-                <li>✓ NDA available</li>
-                <li>✓ UK-based data hosting option</li>
-                <li>✓ Excel-first outputs</li>
-              </ul>
+
+              <div className="mt-6">
+                <CalendlyEmbed />
+              </div>
             </div>
 
-            {/* Drop-in form component (uses Web3Forms + env var) */}
-            <ContactForm />
+            <form
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            >
+              <input
+                type="hidden"
+                name="access_key"
+                value="01455b6d-f87d-4204-bd9e-f6671858f113"
+              />
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                tabIndex="-1"
+                autoComplete="off"
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                  placeholder="Name"
+                  name="name"
+                  required
+                />
+                <input
+                  className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                  placeholder="Email"
+                  type="email"
+                  name="email"
+                  required
+                />
+                <textarea
+                  className="sm:col-span-2 h-32 rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+                  placeholder="What drawings do you work with?"
+                  name="message"
+                  rows={4}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+              >
+                Send
+              </button>
+            </form>
           </div>
         </div>
       </section>
@@ -302,3 +355,4 @@ export default function App() {
     </div>
   );
 }
+
