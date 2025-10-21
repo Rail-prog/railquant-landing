@@ -297,10 +297,12 @@ export default function App() {
             </div>
 
             <form
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+  onSubmit={() => window.gtag && window.gtag('event','generate_lead',{method:'webform'})}
+>
+
               <input
                 type="hidden"
                 name="access_key"
