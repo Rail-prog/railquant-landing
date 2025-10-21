@@ -1,87 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Charset & viewport -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Primary SEO -->
-    <title>RailQuant AI — AI software for rail construction estimating & drawing takeoffs</title>
-    <meta name="description" content="RailQuant AI speeds up rail & civils estimating with AI-assisted drawing takeoffs and Excel-ready outputs. Book a discovery call." />
-    <meta name="keywords" content="rail estimating, drawing takeoffs, AI estimating, civils estimating, quantity takeoff, excel export" />
-
-    <!-- Canonical -->
+    <title>RailQuant AI — Rail Construction Estimating & Drawing Takeoffs</title>
+    <meta
+      name="description"
+      content="AI software for rail construction estimating and drawing takeoffs. Automate quantity extraction from CAD/PDFs and generate Excel-ready outputs — built for rail and civils estimators who need speed, accuracy, and repeatability."
+    />
+    <meta
+      name="keywords"
+      content="rail estimating software, AI takeoff tool, civil estimating, PDF quantity extraction, CAD measurement, Network Rail estimating, UK rail civils, Excel quantity outputs"
+    />
     <link rel="canonical" href="https://railquant.co.uk/" />
 
-    <!-- Favicons (update paths if you add your own) -->
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- Open Graph (Facebook/LinkedIn/etc.) -->
-    <meta property="og:type" content="website" />
+    <!-- Open Graph (Facebook / LinkedIn / WhatsApp) -->
+    <meta property="og:title" content="RailQuant AI — Rail Construction Estimating & Drawing Takeoffs" />
+    <meta property="og:description" content="Speed up quantities, reduce manual errors, and deliver Excel-ready outputs. AI software built for rail and civils estimators." />
     <meta property="og:url" content="https://railquant.co.uk/" />
-    <meta property="og:title" content="RailQuant AI — AI software for rail construction estimating & drawing takeoffs" />
-    <meta property="og:description" content="AI-assisted drawing takeoffs, repeatable templates, and Excel-first outputs for rail & civils estimators." />
+    <meta property="og:type" content="website" />
     <meta property="og:image" content="https://railquant.co.uk/og-image.jpg" />
     <meta property="og:site_name" content="RailQuant AI" />
 
-    <!-- Twitter Cards -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RailQuant AI — AI software for rail construction estimating & drawing takeoffs" />
-    <meta name="twitter:description" content="AI-assisted drawing takeoffs, repeatable templates, and Excel-first outputs for rail & civils estimators." />
+    <meta name="twitter:title" content="RailQuant AI — Rail Construction Estimating & Drawing Takeoffs" />
+    <meta name="twitter:description" content="AI-powered rail estimating software delivering Excel-ready outputs and consistency across projects." />
     <meta name="twitter:image" content="https://railquant.co.uk/og-image.jpg" />
 
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#0f172a" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.svg" />
 
-    <!-- Google Search Console (optional: replace with your verification token) -->
-    <!-- <meta name="google-site-verification" content="KnZckJjFYkczxINNmqHt8ygTuYes1Sv-L3JW" /> -->
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="KnZckJjFYkczxINNmqHt8ygTuYes1Sv-L3JW" />
 
-    <!-- JSON-LD: Organization + Website -->
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMDWNQY4NX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-SMDWNQY4NX');
+    </script>
+
+    <!-- JSON-LD Schema (Structured Data for SEO) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "RailQuant AI",
-      "url": "https://railquant.co.uk/",
-      "logo": "https://railquant.co.uk/logo.png",
-      "sameAs": []
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "RailQuant AI",
-      "url": "https://railquant.co.uk/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://railquant.co.uk/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
+      "url": "https://railquant.co.uk",
+      "logo": "https://railquant.co.uk/favicon.svg",
+      "sameAs": [
+        "https://www.linkedin.com/company/railquant",
+        "https://twitter.com/railquantai"
+      ],
+      "description": "AI-powered software for rail construction estimating and drawing takeoffs. Automate quantity extraction from PDFs/CAD and export Excel-ready outputs.",
+      "founder": {
+        "@type": "Person",
+        "name": "Vasile Vancea"
       }
     }
     </script>
 
-    <!-- GA4: replace G-SMDWNQY4WX with your real Measurement ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMDWNQY4WX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-SMDWNQY4WX');
-    </script>
-
-    <!-- Vite entry -->
-    <script type="module" crossorigin src="/src/main.jsx"></script>
-
-    <!-- Tailwind base styles (your Vite setup already pulls this via main.jsx -> index.css) -->
+    <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/src/index.css" />
   </head>
-  <body class="bg-slate-50">
+
+  <body>
     <div id="root"></div>
+
+    <!-- Vite + React main script -->
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-
-
