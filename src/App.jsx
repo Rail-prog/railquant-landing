@@ -358,8 +358,13 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="py-10 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} RailQuant AI. All rights reserved.
-      </footer>
+  <div className="space-x-4 mb-2">
+    <a href="/privacy" className="underline">Privacy</a>
+    <a href="/terms" className="underline">Terms</a>
+  </div>
+  © {new Date().getFullYear()} RailQuant AI. All rights reserved.
+</footer>
+
     </div>
   );
 }
