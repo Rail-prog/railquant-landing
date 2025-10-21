@@ -56,6 +56,12 @@ export default function App() {
       </header>
 
       {/* HERO */}
+      <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">🔒 NDA available</span>
+  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">🇬🇧 UK-only hosting option</span>
+  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">📊 Excel-first outputs</span>
+</div>
+
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:grid-cols-2">
