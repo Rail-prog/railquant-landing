@@ -1,37 +1,87 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Charset & viewport -->
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RailQuant AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Primary Meta -->
-    <meta name="title" content="RailQuant AI – AI software for rail construction estimating and drawing takeoffs">
-    <meta name="description" content="RailQuant AI automates rail construction estimating and drawing takeoffs with Excel-ready outputs.">
+    <!-- Primary SEO -->
+    <title>RailQuant AI — AI software for rail construction estimating & drawing takeoffs</title>
+    <meta name="description" content="RailQuant AI speeds up rail & civils estimating with AI-assisted drawing takeoffs and Excel-ready outputs. Book a discovery call." />
+    <meta name="keywords" content="rail estimating, drawing takeoffs, AI estimating, civils estimating, quantity takeoff, excel export" />
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://www.railquant.co.uk/" />
+    <link rel="canonical" href="https://railquant.co.uk/" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.railquant.co.uk/">
-    <meta property="og:title" content="RailQuant AI – AI software for rail construction estimating and drawing takeoffs">
-    <meta property="og:description" content="RailQuant AI automates rail construction estimating and drawing takeoffs with Excel-ready outputs.">
+    <!-- Favicons (update paths if you add your own) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMDWNQY4WX"></script>
+    <!-- Open Graph (Facebook/LinkedIn/etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://railquant.co.uk/" />
+    <meta property="og:title" content="RailQuant AI — AI software for rail construction estimating & drawing takeoffs" />
+    <meta property="og:description" content="AI-assisted drawing takeoffs, repeatable templates, and Excel-first outputs for rail & civils estimators." />
+    <meta property="og:image" content="https://railquant.co.uk/og-image.jpg" />
+    <meta property="og:site_name" content="RailQuant AI" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RailQuant AI — AI software for rail construction estimating & drawing takeoffs" />
+    <meta name="twitter:description" content="AI-assisted drawing takeoffs, repeatable templates, and Excel-first outputs for rail & civils estimators." />
+    <meta name="twitter:image" content="https://railquant.co.uk/og-image.jpg" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Google Search Console (optional: replace with your verification token) -->
+    <!-- <meta name="google-site-verification" content="PASTE_YOUR_TOKEN_HERE" /> -->
+
+    <!-- JSON-LD: Organization + Website -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RailQuant AI",
+      "url": "https://railquant.co.uk/",
+      "logo": "https://railquant.co.uk/logo.png",
+      "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "RailQuant AI",
+      "url": "https://railquant.co.uk/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://railquant.co.uk/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- GA4: replace G-XXXXXXXXXX with your real Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){ dataLayer.push(arguments); }
       gtag('js', new Date());
-      gtag('config', 'G-SMDWNQY4WX');
+      gtag('config', 'G-XXXXXXXXXX');
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
+
     <!-- Vite entry -->
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" crossorigin src="/src/main.jsx"></script>
+
+    <!-- Tailwind base styles (your Vite setup already pulls this via main.jsx -> index.css) -->
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body class="bg-slate-50">
+    <div id="root"></div>
   </body>
 </html>
+
 
