@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
+import ContactForm from "./components/ContactForm.jsx";
 
 export default function App() {
   // latest three posts
-  const latest = React.useMemo(
+  const latest = useMemo(
     () =>
       [...posts]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -153,7 +154,7 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
                 1
@@ -238,16 +239,14 @@ export default function App() {
       <section id="insights" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Latest insights
-            </h2>
+            <h2 className="text-2xl font-semibold text-slate-900">Latest insights</h2>
             <Link to="/blog" className="text-sm text-slate-700 underline">
               View all
             </Link>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {latest.map((p, i) => (
+            {latest.map((p) => (
               <article
                 key={p.slug}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
@@ -263,10 +262,7 @@ export default function App() {
                 <p className="text-sm text-slate-600 mb-4">
                   {p.content.replace(/\s+/g, " ").trim().slice(0, 120)}…
                 </p>
-                <Link
-                  to={`/post/${p.slug}`}
-                  className="text-slate-900 underline text-sm"
-                >
+                <Link to={`/post/${p.slug}`} className="text-slate-900 underline text-sm">
                   Read more →
                 </Link>
               </article>
@@ -284,8 +280,7 @@ export default function App() {
                 Book a discovery call
               </h2>
               <p className="mt-2 text-slate-600 text-sm">
-                Tell us about your estimating workflow. We’ll show how RailQuant
-                can help.
+                Tell us about your estimating workflow. We’ll show how RailQuant can help.
               </p>
               <ul className="mt-6 space-y-2 text-sm text-slate-600">
                 <li>✓ NDA available</li>
@@ -294,54 +289,8 @@ export default function App() {
               </ul>
             </div>
 
-            <form
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
-              <input
-                type="hidden"
-                name="access_key"
-                value="01455b6d-f87d-4204-bd9e-f6671858f113"
-              />
-              <input
-                type="checkbox"
-                name="botcheck"
-                className="hidden"
-                tabIndex="-1"
-                autoComplete="off"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
-                  placeholder="Name"
-                  name="name"
-                  required
-                />
-                <input
-                  className="rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
-                  placeholder="Email"
-                  type="email"
-                  name="email"
-                  required
-                />
-                <textarea
-                  className="sm:col-span-2 h-32 rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-slate-200"
-                  placeholder="What drawings do you work with?"
-                  name="message"
-                  rows={4}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
-              >
-                Send
-              </button>
-            </form>
+            {/* Drop-in form component (uses Web3Forms + env var) */}
+            <ContactForm />
           </div>
         </div>
       </section>
