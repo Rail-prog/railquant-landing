@@ -1,32 +1,40 @@
-import React from 'react';
-
+import React from "react";
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
 
 export default function Blog() {
-  const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
-
   return (
-    <main className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-6 text-slate-900">RailQuant Blog</h1>
-      <p className="text-slate-600 mb-8">Insights on AI, rail construction estimating, and drawing takeoffs.</p>
-
-      <ul className="space-y-6">
-        {sorted.map((p) => (
-          <li key={p.slug} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold">
-              <Link to={`/post/${p.slug}`} className="hover:underline">{p.title}</Link>
-            </h2>
-            <p className="text-xs text-slate-500 mt-1">{new Date(p.date).toLocaleDateString()}</p>
-            <p className="text-sm text-slate-700 mt-3">{p.content}</p>
-            <Link to={`/post/${p.slug}`} className="inline-block mt-3 underline text-slate-900">Read article →</Link>
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-10 text-sm">
-        <Link to="/" className="underline">← Back to home</Link>
-      </p>
-    </main>
+    <div className="min-h-screen bg-slate-50 text-slate-800 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-slate-900 mb-10">Blog</h1>
+        <div className="grid gap-6">
+          {posts.map((p) => (
+            <article
+              key={p.slug}
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition"
+            >
+              <h2 className="text-xl font-semibold mb-2">
+                <Link to={`/post/${p.slug}`} className="hover:underline">
+                  {p.title}
+                </Link>
+              </h2>
+              <p className="text-xs text-slate-500 mb-3">
+                {new Date(p.date).toLocaleDateString()} — {p.author}
+              </p>
+              <p className="text-sm text-slate-600 mb-4">
+                {p.content.replace(/\s+/g, " ").trim().slice(0, 160)}…
+              </p>
+              <Link
+                to={`/post/${p.slug}`}
+                className="text-slate-900 underline text-sm"
+              >
+                Read more →
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
+
