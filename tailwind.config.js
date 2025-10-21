@@ -19,3 +19,19 @@ export default {
   },
   plugins: []
 };
+/* src/index.css */
+
+/* smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Tailwind layers (already in your file) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure page fills height nicely (you likely already have this) */
+@layer base {
+  html, body, #root { height: 100%; }
+}
