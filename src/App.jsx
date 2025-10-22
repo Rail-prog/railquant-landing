@@ -1,27 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom"; // kept for internal links like /blog if you add later
+import { Link } from "react-router-dom";
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
-import { startCheckout } from "./stripe";
-
-// …
-
-<button
-  onClick={() => startCheckout()}  // uses default env STRIPE_PRICE_PRO_MONTH
-  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
->
-  Subscribe to Pro
-</button>
-
-/* Example for another plan with a hard-coded priceId
-<button
-  onClick={() => startCheckout({ priceId: "price_ABC123" })}
-  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
->
-  Get Team Plan
-</button>
-*/
+import { startCheckout } from "./stripe"; // client helper that POSTs to /api/create-checkout-session
 
 export default function App() {
   // latest three posts
@@ -33,9 +15,15 @@ export default function App() {
     []
   );
 
+  // Convenience getters for Price IDs (with safe fallbacks so the UI still renders)
+  const PRICE_ONEOFF =
+    import.meta.env.VITE_STRIPE_PRICE_ONEOFF || "price_replace_ME_ONEOFF";
+  const PRICE_PRO =
+    import.meta.env.VITE_STRIPE_PRICE_PRO || "price_replace_ME_PRO";
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
-      {/* Navbar */}
+      {/* NAVBAR */}
       <header className="sticky top-0 z-30 bg-white/70 backdrop-blur border-b border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -74,7 +62,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Quick badges */}
+      {/* QUICK BADGES UNDER NAV */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
           <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">
@@ -95,11 +83,13 @@ export default function App() {
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
-                AI software for rail construction estimating and drawing takeoffs.
+                AI software for rail construction estimating and drawing
+                takeoffs.
               </h1>
               <p className="mt-6 text-slate-600 leading-relaxed">
-                Speed up quantities, reduce manual errors, and deliver Excel-ready outputs.
-                Built for rail and civils estimators who need accuracy and repeatability.
+                Speed up quantities, reduce manual errors, and deliver
+                Excel-ready outputs. Built for rail and civils estimators who
+                need accuracy and repeatability.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -186,7 +176,7 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
                 step: 1,
@@ -227,46 +217,58 @@ export default function App() {
           <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                name: "one off",
-                price: "£99",
-                note: "Pilot projects",
-                features: ["✓ Limited features", "✓ Email support"],
-              },
-              {
-                name: "Pro",
-                price: "£149",
-                note: "Per seat / month",
-                features: ["✓ AI takeoffs", "✓ Excel exports", "✓ Templates"],
-              },
-              {
-                name: "Team",
-                price: "Custom",
-                note: "For organisations",
-                features: [
-                  "✓ SSO & controls",
-                  "✓ UK-only hosting option",
-                  "✓ Priority support",
-                ],
-              },
-            ].map((plan) => (
-              <div
-                key={plan.name}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+            {/* One-off */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-sm font-semibold text-slate-900">One-off</h3>
+              <p className="mt-2 text-3xl font-bold">£99</p>
+              <p className="text-sm text-slate-500">Pilot projects</p>
+              <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                <li>✓ Single deliverable</li>
+                <li>✓ Email support</li>
+              </ul>
+              <button
+                onClick={() => startCheckout(PRICE_ONEOFF)}
+                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 w-full"
               >
-                <h3 className="text-sm font-semibold text-slate-900">
-                  {plan.name}
-                </h3>
-                <p className="mt-2 text-3xl font-bold">{plan.price}</p>
-                <p className="text-sm text-slate-500">{plan.note}</p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-600">
-                  {plan.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                Buy one-off
+              </button>
+            </div>
+
+            {/* Pro */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
+              <p className="mt-2 text-3xl font-bold">£149</p>
+              <p className="text-sm text-slate-500">Per seat / month</p>
+              <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                <li>✓ AI takeoffs</li>
+                <li>✓ Excel exports</li>
+                <li>✓ Templates</li>
+              </ul>
+              <button
+                onClick={() => startCheckout(PRICE_PRO)}
+                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 w-full"
+              >
+                Subscribe to Pro
+              </button>
+            </div>
+
+            {/* Team */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-sm font-semibold text-slate-900">Team</h3>
+              <p className="mt-2 text-3xl font-bold">Custom</p>
+              <p className="text-sm text-slate-500">For organisations</p>
+              <ul className="mt-4 space-y-2 text-sm text-slate-600">
+                <li>✓ SSO &amp; controls</li>
+                <li>✓ UK-only hosting option</li>
+                <li>✓ Priority support</li>
+              </ul>
+              <a
+                href="#contact"
+                className="mt-4 inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white w-full"
+              >
+                Talk to sales
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -335,7 +337,8 @@ export default function App() {
               method="POST"
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
               onSubmit={() =>
-                window.gtag && window.gtag("event", "generate_lead", { method: "webform" })
+                window.gtag &&
+                window.gtag("event", "generate_lead", { method: "webform" })
               }
             >
               <input
@@ -388,8 +391,12 @@ export default function App() {
       {/* FOOTER */}
       <footer className="py-10 text-center text-xs text-slate-500">
         <div className="space-x-4 mb-2">
-          <a href="/privacy" className="underline">Privacy</a>
-          <a href="/terms" className="underline">Terms</a>
+          <a href="/privacy" className="underline">
+            Privacy
+          </a>
+        <a href="/terms" className="underline">
+            Terms
+          </a>
         </div>
         © {new Date().getFullYear()} RailQuant AI. All rights reserved.
       </footer>
