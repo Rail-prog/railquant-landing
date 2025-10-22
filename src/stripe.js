@@ -19,6 +19,16 @@ export async function startCheckout({ priceId, quantity = 1 } = {}) {
     alert("Something went wrong starting checkout.");
   }
 }
+export async function openBillingPortal({ customerId, returnUrl } = {}) {
+  const res = await fetch("/api/create-portal-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ customerId, returnUrl }),
+  });
+  const data = await res.json();
+  if (data?.url) window.location.href = data.url;
+  else alert("Unable to open billing portal.");
+}
 
 
 
