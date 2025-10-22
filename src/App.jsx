@@ -5,6 +5,13 @@ import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
+import ProductPreview from "./components/ProductPreview.jsx";
+import IllustratedFeature from "./components/IllustratedFeature.jsx";
+
+// Optional icons (paste definitions from above file, or keep letters)
+const IconRuler = () => (<svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21l18-18M14 7l3 3M11 10l3 3M8 13l3 3M5 16l3 3" /></svg>);
+const IconExcel = () => (<svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" className="opacity-20" /><path d="M8 7h8v10H8z" className="opacity-60" /><path d="M10 9l4 6m0-6l-4 6" /></svg>);
+const IconTemplate = () => (<svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16" /></svg>);
 
 // If you added a public env for the one-off price, we can read it here.
 // (Set in Vercel as VITE_STRIPE_PRICE_ONE_OFF=<price_xxx>.)
