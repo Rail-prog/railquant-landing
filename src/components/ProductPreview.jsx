@@ -1,20 +1,15 @@
 import React from "react";
 
-/**
- * Props:
- *  - poster: string  (fallback image in /public)
- *  - src: string     (mp4 in /public)
- *  - caption?: string
- */
-export default function ProductPreview({ poster = "/og-image.png", src = "/videos/product-preview.mp4", caption = "2-min product overview" }) {
+export default function ProductPreview({
+  poster = "/og-image.png",
+  src = "/videos/product-preview.mp4",
+  caption = "2-min product overview",
+}) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <div className="relative">
-      {/* Inline player (muted/loop) */}
-      <div
-        className="group relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
-      >
+      <div className="group relative aspect-video w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <video
           className="h-full w-full object-cover"
           poster={poster}
@@ -28,7 +23,6 @@ export default function ProductPreview({ poster = "/og-image.png", src = "/video
           <source src={src} type="video/mp4" />
         </video>
 
-        {/* Play overlay */}
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -45,13 +39,10 @@ export default function ProductPreview({ poster = "/og-image.png", src = "/video
         </div>
       </div>
 
-      {/* Lightbox modal */}
       {open && (
         <div
           className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm"
           onClick={() => setOpen(false)}
-          role="dialog"
-          aria-modal="true"
         >
           <div
             className="mx-auto mt-10 w-full max-w-5xl"
@@ -74,4 +65,3 @@ export default function ProductPreview({ poster = "/og-image.png", src = "/video
     </div>
   );
 }
-
