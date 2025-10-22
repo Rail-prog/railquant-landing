@@ -5,18 +5,7 @@ import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 
-// One-off £99
-<button
-  onClick={() =>
-    startCheckout({ priceId: import.meta.env.VITE_STRIPE_PRICE_ONE_OFF })
-  }
-  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
->
-  Buy one-off
-</button>
 
-// Pro £299 subscription
-<button
   onClick={() =>
     startCheckout({ priceId: import.meta.env.VITE_STRIPE_PRICE_PRO })
   }
