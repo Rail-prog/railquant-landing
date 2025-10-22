@@ -1,17 +1,24 @@
-// /src/stripe.js
+// src/stripe.js
 export async function startCheckout({ priceId, quantity = 1 } = {}) {
-  const resp = await fetch("/api/create-checkout-session", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ priceId, quantity }),
-  });
+  try {
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ priceId, quantity }),
+    });
+    const data = await res.json();
 
-  if (!resp.ok) {
-    const err = await resp.json().catch(() => ({}));
-    throw new Error(err?.details || "Checkout failed");
+    if (data?.url) {
+      window.location.href = data.url;
+      return;
+    }
+
+    console.error("No checkout URL returned:", data);
+    alert("Unable to start checkout. Please try again.");
+  } catch (e) {
+    console.error(e);
+    alert("Something went wrong starting checkout.");
   }
-
-  const { url } = await resp.json();
-  window.location.href = url; // redirect to Stripe-hosted Checkout
 }
+
 
