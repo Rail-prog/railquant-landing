@@ -3,6 +3,25 @@ import { Link } from "react-router-dom"; // kept for internal links like /blog i
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
+import { startCheckout } from "./stripe";
+
+// …
+
+<button
+  onClick={() => startCheckout()}  // uses default env STRIPE_PRICE_PRO_MONTH
+  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+>
+  Subscribe to Pro
+</button>
+
+/* Example for another plan with a hard-coded priceId
+<button
+  onClick={() => startCheckout({ priceId: "price_ABC123" })}
+  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+>
+  Get Team Plan
+</button>
+*/
 
 export default function App() {
   // latest three posts
