@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import posts from "./posts.js";
@@ -5,12 +6,9 @@ import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 
-    startCheckout({ priceId: import.meta.env.VITE_STRIPE_PRICE_PRO })
-  }
-  className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
->
-  Subscribe to Pro
-</button>
+// If you added a public env for the one-off price, we can read it here.
+// (Set in Vercel as VITE_STRIPE_PRICE_ONE_OFF=<price_xxx>.)
+const ONE_OFF_PRICE = import.meta.env.VITE_STRIPE_PRICE_ONE_OFF || "";
 
 export default function App() {
   // latest three posts
@@ -22,15 +20,20 @@ export default function App() {
     []
   );
 
-  // Convenience getters for Price IDs (with safe fallbacks so the UI still renders)
-  const PRICE_ONEOFF =
-    import.meta.env.VITE_STRIPE_PRICE_ONEOFF || "price_replace_ME_ONEOFF";
-  const PRICE_PRO =
-    import.meta.env.VITE_STRIPE_PRICE_PRO || "price_replace_ME_PRO";
+  const handleBuyOneOff = () => {
+    // For a one-time payment you must pass the *one-off* priceId.
+    // Ensure your API handler supports mode "payment" when a one-off price is used.
+    return startCheckout({ priceId: ONE_OFF_PRICE });
+  };
+
+  const handleSubscribePro = () => {
+    // No priceId passed → the API will use STRIPE_PRICE_PRO on the server.
+    return startCheckout();
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
-      {/* NAVBAR */}
+      {/* Navbar */}
       <header className="sticky top-0 z-30 bg-white/70 backdrop-blur border-b border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -69,9 +72,9 @@ export default function App() {
         </div>
       </header>
 
-      {/* QUICK BADGES UNDER NAV */}
+      {/* quick badges under nav */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+        <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-600">
           <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">
             🔒 NDA available
           </span>
@@ -224,7 +227,7 @@ export default function App() {
           <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {/* One-off */}
+            {/* ONE-OFF */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">One-off</h3>
               <p className="mt-2 text-3xl font-bold">£99</p>
@@ -234,17 +237,23 @@ export default function App() {
                 <li>✓ Email support</li>
               </ul>
               <button
-                onClick={() => startCheckout(PRICE_ONEOFF)}
-                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 w-full"
+                disabled={!ONE_OFF_PRICE}
+                onClick={handleBuyOneOff}
+                className="mt-6 w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 disabled:opacity-50"
+                title={
+                  ONE_OFF_PRICE
+                    ? "Pay once"
+                    : "Set VITE_STRIPE_PRICE_ONE_OFF in Vercel first"
+                }
               >
                 Buy one-off
               </button>
             </div>
 
-            {/* Pro */}
+            {/* PRO SUBSCRIPTION */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
-              <p className="mt-2 text-3xl font-bold">£299</p>
+              <p className="mt-2 text-3xl font-bold">£149</p>
               <p className="text-sm text-slate-500">Per seat / month</p>
               <ul className="mt-4 space-y-2 text-sm text-slate-600">
                 <li>✓ AI takeoffs</li>
@@ -252,14 +261,14 @@ export default function App() {
                 <li>✓ Templates</li>
               </ul>
               <button
-                onClick={() => startCheckout(PRICE_PRO)}
-                className="mt-4 inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 w-full"
+                onClick={handleSubscribePro}
+                className="mt-6 w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
               >
                 Subscribe to Pro
               </button>
             </div>
 
-            {/* Team */}
+            {/* TEAM (contact) */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Team</h3>
               <p className="mt-2 text-3xl font-bold">Custom</p>
@@ -271,7 +280,7 @@ export default function App() {
               </ul>
               <a
                 href="#contact"
-                className="mt-4 inline-flex items-center justify-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white w-full"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-white"
               >
                 Talk to sales
               </a>
@@ -401,7 +410,7 @@ export default function App() {
           <a href="/privacy" className="underline">
             Privacy
           </a>
-        <a href="/terms" className="underline">
+          <a href="/terms" className="underline">
             Terms
           </a>
         </div>
