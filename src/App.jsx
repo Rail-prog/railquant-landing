@@ -253,7 +253,7 @@ export default function App() {
             {/* PRO SUBSCRIPTION */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
-              <p className="mt-2 text-3xl font-bold">£149</p>
+              <p className="mt-2 text-3xl font-bold">£299</p>
               <p className="text-sm text-slate-500">Per seat / month</p>
               <ul className="mt-4 space-y-2 text-sm text-slate-600">
                 <li>✓ AI takeoffs</li>
