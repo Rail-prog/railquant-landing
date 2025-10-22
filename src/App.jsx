@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // kept for internal links like /blog if you add later
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
@@ -55,13 +55,22 @@ export default function App() {
         </div>
       </header>
 
-      {/* HERO */}
-      <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
-  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">🔒 NDA available</span>
-  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">🇬🇧 UK-only hosting option</span>
-  <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">📊 Excel-first outputs</span>
-</div>
+      {/* Quick badges */}
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">
+            🔒 NDA available
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">
+            🇬🇧 UK-only hosting option
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">
+            📊 Excel-first outputs
+          </span>
+        </div>
+      </div>
 
+      {/* HERO */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:grid-cols-2">
@@ -158,7 +167,7 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
                 step: 1,
@@ -201,8 +210,8 @@ export default function App() {
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               {
-                name: "Starter",
-                price: "£0",
+                name: "one off",
+                price: "£99",
                 note: "Pilot projects",
                 features: ["✓ Limited features", "✓ Email support"],
               },
@@ -284,7 +293,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* CONTACT SECTION (with Calendly) */}
+      {/* CONTACT (Calendly + Web3Forms) */}
       <section id="contact" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-2">
@@ -303,12 +312,13 @@ export default function App() {
             </div>
 
             <form
-  action="https://api.web3forms.com/submit"
-  method="POST"
-  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-  onSubmit={() => window.gtag && window.gtag('event','generate_lead',{method:'webform'})}
->
-
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              onSubmit={() =>
+                window.gtag && window.gtag("event", "generate_lead", { method: "webform" })
+              }
+            >
               <input
                 type="hidden"
                 name="access_key"
@@ -358,14 +368,12 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="py-10 text-center text-xs text-slate-500">
-  <div className="space-x-4 mb-2">
-    <a href="/privacy" className="underline">Privacy</a>
-    <a href="/terms" className="underline">Terms</a>
-  </div>
-  © {new Date().getFullYear()} RailQuant AI. All rights reserved.
-</footer>
-
+        <div className="space-x-4 mb-2">
+          <a href="/privacy" className="underline">Privacy</a>
+          <a href="/terms" className="underline">Terms</a>
+        </div>
+        © {new Date().getFullYear()} RailQuant AI. All rights reserved.
+      </footer>
     </div>
   );
 }
-
