@@ -4,7 +4,7 @@ export default function StripGallery({ images = [] }) {
   if (!images.length) return null;
   return (
     <div className="overflow-x-auto">
-      <div className="flex gap-4 min-w-full">
+      <div className="flex gap-4 min-w-full py-2">
         {images.map((src) => (
           <img
             key={src}
