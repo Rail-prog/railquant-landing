@@ -8,6 +8,7 @@ import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 
 // NEW imports (make sure these files exist under src/components)
+import FeatureWorkflow from "./components/FeatureWorkflow.jsx";
 import ProductPreview from "./components/ProductPreview.jsx";
 import IllustratedFeature from "./components/IllustratedFeature.jsx";
 import StripGallery from "./components/StripGallery.jsx";
@@ -90,6 +91,8 @@ export default function App() {
 
       {/* HERO (now uses the real ProductPreview) */}
       <section className="py-16 sm:py-24">
+        import FeatureWorkflow from "./components/FeatureWorkflow.jsx";
+ 
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
