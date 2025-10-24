@@ -14,7 +14,7 @@ export default function StripGallery() {
       desc: "The AI recognises cables, pipes, and structures — and automatically measures lengths, counts, and areas.",
     },
     {
-      img: "/excel-export.png",
+      img: "/excel-output.png",
       title: "3. Export Excel-ready quantities",
       desc: "Instantly download a formatted Excel sheet with all item names, units, and quantities for pricing.",
     },
