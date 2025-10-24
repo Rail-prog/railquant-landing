@@ -5,22 +5,25 @@ import { Link } from "react-router-dom";
 import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
+import ProductPreview from "./components/ProductPreview.jsx";
+import StripGallery from "./components/StripGallery.jsx";
 import { startCheckout } from "./stripe";
-import UploadTakeoff from "./components/UploadTakeoff.jsx";
 
-// Public env for the one-off price (Vercel -> VITE_STRIPE_PRICE_ONE_OFF=price_xxx)
+// Optional (if you still use it elsewhere):
+// import UploadTakeoff from "./components/UploadTakeoff.jsx";
+
+// Public env for one-off price (set in Vercel as VITE_STRIPE_PRICE_ONE_OFF=price_xxx)
 const ONE_OFF_PRICE = import.meta.env.VITE_STRIPE_PRICE_ONE_OFF || "";
 
 export default function App() {
-  // latest three posts
+  // Latest three posts
   const latest = React.useMemo(
-    () =>
-      [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3),
+    () => [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3),
     []
   );
 
-  const handleBuyOneOff = () => startCheckout({ priceId: ONE_OFF_PRICE }); // one-off £99
-  const handleSubscribePro = () => startCheckout(); // server default (Pro)
+  const handleBuyOneOff = () => startCheckout({ priceId: ONE_OFF_PRICE });
+  const handleSubscribePro = () => startCheckout(); // server default (PRO) price
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -53,7 +56,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* quick badges under nav */}
+      {/* Quick badges under nav */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-600">
           <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">🔒 NDA available</span>
@@ -62,7 +65,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* HERO */}
+      {/* HERO with ProductPreview (video) */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:grid-cols-2">
@@ -71,8 +74,8 @@ export default function App() {
                 AI software for rail construction estimating and drawing takeoffs.
               </h1>
               <p className="mt-6 text-slate-600 leading-relaxed">
-                Speed up quantities, reduce manual errors, and deliver Excel-ready outputs.
-                Built for rail and civils estimators who need accuracy and repeatability.
+                Upload your drawings, let RailQuant AI handle takeoffs automatically, and
+                export clean, Excel-ready results for your estimates.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -98,32 +101,28 @@ export default function App() {
             </div>
 
             <div className="relative">
-              {/* If you have a hero video/image, you can place it here. */}
-              <div className="aspect-video w-full rounded-2xl border border-slate-200 bg-white shadow-sm grid place-items-center text-slate-400">
-                <span className="text-sm">Product preview</span>
-              </div>
+              {/* This renders your video preview (ProductPreview.jsx) */}
+              <ProductPreview />
             </div>
           </div>
         </div>
       </section>
 
-      {/* AI Take-off Upload demo */}
-      <section className="py-12 bg-white border-y border-slate-200">
+      {/* See how RailQuant AI transforms your workflow (strip gallery) */}
+      <section className="py-12 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-4">Try the drawing upload demo</h2>
-          <p className="text-sm text-slate-600 mb-6">
-            Upload a sample PDF drawing to see how AI take-off would flow (mocked for now, real pipeline later).
-          </p>
-          <UploadTakeoff />
+          <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+            See how RailQuant AI transforms your workflow
+          </h2>
+          {/* This renders your horizontal scroll gallery with 4 images/cards */}
+          <StripGallery />
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* FEATURES (cards) */}
       <section id="features" className="py-16 bg-white border-y border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-slate-900">
-            Built for rail &amp; civils estimating
-          </h2>
+          <h2 className="text-2xl font-semibold text-slate-900">Built for rail &amp; civils estimating</h2>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <FeatureCard
@@ -166,21 +165,30 @@ export default function App() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS (step cards) */}
       <section id="how" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How it works</h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              { step: 1, title: "Upload drawings", desc: "PDF or CAD. We detect layers and scales automatically." },
-              { step: 2, title: "Mark up with AI", desc: "Use AI-assisted tools to measure, count, and categorise." },
-              { step: 3, title: "Export to Excel", desc: "Configured item names, units, and quantities ready for pricing." },
+              {
+                step: 1,
+                title: "Upload drawings",
+                desc: "PDF or CAD. We detect layers and scales automatically."
+              },
+              {
+                step: 2,
+                title: "AI take-off",
+                desc: "AI identifies and quantifies elements—lengths, counts, and areas."
+              },
+              {
+                step: 3,
+                title: "Export to Excel",
+                desc: "Configured item names, units, and quantities ready for pricing."
+              }
             ].map(({ step, title, desc }) => (
-              <div
-                key={step}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
+              <div key={step} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
                   {step}
                 </div>
@@ -197,8 +205,8 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {/* ONE-OFF */}
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {/* One-off */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">One-off</h3>
               <p className="mt-2 text-3xl font-bold">£99</p>
@@ -217,7 +225,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* PRO SUBSCRIPTION */}
+            {/* Pro subscription */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
               <p className="mt-2 text-3xl font-bold">£299</p>
@@ -235,7 +243,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* TEAM (contact) */}
+            {/* Team (contact) */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Team</h3>
               <p className="mt-2 text-3xl font-bold">Custom</p>
@@ -260,20 +268,13 @@ export default function App() {
       <section id="insights" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-slate-900">
-              Latest insights
-            </h2>
-            <Link to="/blog" className="text-sm text-slate-700 underline">
-              View all
-            </Link>
+            <h2 className="text-2xl font-semibold text-slate-900">Latest insights</h2>
+            <Link to="/blog" className="text-sm text-slate-700 underline">View all</Link>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latest.map((p) => (
-              <article
-                key={p.slug}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
+              <article key={p.slug} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 className="text-lg font-semibold mb-2">
                   <Link to={`/post/${p.slug}`} className="hover:underline">
                     {p.title}
@@ -285,10 +286,7 @@ export default function App() {
                 <p className="text-sm text-slate-600 mb-4">
                   {p.content.replace(/\s+/g, " ").trim().slice(0, 120)}…
                 </p>
-                <Link
-                  to={`/post/${p.slug}`}
-                  className="text-slate-900 underline text-sm"
-                >
+                <Link to={`/post/${p.slug}`} className="text-slate-900 underline text-sm">
                   Read more →
                 </Link>
               </article>
@@ -302,12 +300,9 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-semibold text-slate-900">
-                Book a discovery call
-              </h2>
+              <h2 className="text-2xl font-semibold text-slate-900">Book a discovery call</h2>
               <p className="mt-2 text-slate-600 text-sm">
-                Tell us about your estimating workflow. We’ll show how RailQuant
-                can help streamline takeoffs and reporting.
+                Tell us about your estimating workflow. We’ll show how RailQuant can help streamline takeoffs and reporting.
               </p>
 
               <div className="mt-6">
@@ -319,23 +314,10 @@ export default function App() {
               action="https://api.web3forms.com/submit"
               method="POST"
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              onSubmit={() =>
-                window.gtag &&
-                window.gtag("event", "generate_lead", { method: "webform" })
-              }
+              onSubmit={() => window.gtag && window.gtag("event", "generate_lead", { method: "webform" })}
             >
-              <input
-                type="hidden"
-                name="access_key"
-                value="01455b6d-f87d-4204-bd9e-f6671858f113"
-              />
-              <input
-                type="checkbox"
-                name="botcheck"
-                className="hidden"
-                tabIndex="-1"
-                autoComplete="off"
-              />
+              <input type="hidden" name="access_key" value="01455b6d-f87d-4204-bd9e-f6671858f113" />
+              <input type="checkbox" name="botcheck" className="hidden" tabIndex="-1" autoComplete="off" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -382,4 +364,3 @@ export default function App() {
     </div>
   );
 }
-
