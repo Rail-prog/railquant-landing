@@ -1,15 +1,11 @@
 // api/upload.js
-// Minimal multipart parser + mock "AI" take-off.
-// Works on Vercel serverless (Node) without Next.js.
-
 import Busboy from "busboy";
 
-/** Mock analyzer: returns quantities based on filename heuristics */
+/** Generate fake AI take-off results */
 function mockAnalyze(filename = "drawing.pdf") {
   const items = [];
-
-  // Some playful heuristics so demos feel real:
   const lower = filename.toLowerCase();
+
   if (lower.includes("track") || lower.includes("alignment")) {
     items.push({ item: "Ballasted track", unit: "m", qty: 320 });
     items.push({ item: "Sleepers", unit: "ea", qty: 520 });
@@ -24,7 +20,6 @@ function mockAnalyze(filename = "drawing.pdf") {
     items.push({ item: "Catenary wire", unit: "m", qty: 950 });
   }
   if (items.length === 0) {
-    // Default if no keywords matched
     items.push({ item: "Cable troughing", unit: "m", qty: 175 });
     items.push({ item: "Lineside cabinet bases", unit: "ea", qty: 12 });
     items.push({ item: "Walking route (GRP)", unit: "m²", qty: 95 });
@@ -32,69 +27,46 @@ function mockAnalyze(filename = "drawing.pdf") {
 
   return {
     filename,
-    confidence: 0.72, // pretend score
+    confidence: 0.72,
     items,
   };
 }
 
-/** Parse multipart form-data with Busboy (keeps memory usage modest) */
+/** Parse multipart form-data */
 function parseMultipart(req) {
   return new Promise((resolve, reject) => {
-    try {
-      const busboy = Busboy({ headers: req.headers });
-      const files = [];
-      const fields = {};
+    const busboy = Busboy({ headers: req.headers });
+    const files = [];
 
-      busboy.on("file", (fieldname, file, info) => {
-        const { filename, mimeType } = info;
-        // We don’t actually need the bytes for the mock—just drain.
-        file.on("data", () => {});
-        file.on("end", () => {
-          files.push({ fieldname, filename, mimeType });
-        });
-      });
+    busboy.on("file", (field, file, info) => {
+      const { filename, mimeType } = info;
+      file.resume(); // drain stream
+      files.push({ filename, mimeType });
+    });
 
-      busboy.on("field", (name, val) => {
-        fields[name] = val;
-      });
-
-      busboy.on("finish", () => resolve({ files, fields }));
-      busboy.on("error", reject);
-
-      req.pipe(busboy);
-    } catch (err) {
-      reject(err);
-    }
+    busboy.on("finish", () => resolve(files));
+    busboy.on("error", reject);
+    req.pipe(busboy);
   });
 }
 
-/** Vercel API handler */
+/** Serverless API handler (works on Vercel) */
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  // Must disable body parsing — Vercel serverless leaves req as a stream for multipart
-  // (No config file here; this is a pure Node handler. We simply parse via Busboy.)
   try {
-    const { files } = await parseMultipart(req);
-
+    const files = await parseMultipart(req);
     if (!files.length) {
-      return res.status(400).json({ error: "No file uploaded (field 'file' expected)." });
+      return res.status(400).json({ error: "No file uploaded." });
     }
 
-    const first = files[0];
-    const result = mockAnalyze(first.filename);
-
-    return res.status(200).json({
-      ok: true,
-      analysis: result,
-      message: "Mock take-off completed.",
-    });
+    const result = mockAnalyze(files[0].filename);
+    return res.status(200).json({ ok: true, analysis: result });
   } catch (err) {
     console.error("Upload error:", err);
-    return res.status(500).json({ ok: false, error: "Upload/parse failed." });
+    return res.status(500).json({ ok: false, error: err.message });
   }
 }
-
