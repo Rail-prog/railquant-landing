@@ -8,6 +8,7 @@ import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 
 // NEW imports
+import UploadTakeoff from "./components/UploadTakeoff.jsx";
 import FeatureWorkflow from "./components/FeatureWorkflow.jsx";
 import ProductPreview from "./components/ProductPreview.jsx";
 import IllustratedFeature from "./components/IllustratedFeature.jsx";
@@ -109,6 +110,19 @@ export default function App() {
                 </a>
               </div>
             </div>
+{/* UPLOAD & MOCK TAKE-OFF */}
+<section className="py-12">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h2 className="text-2xl font-semibold text-slate-900 mb-4">
+      Try it now — upload a drawing
+    </h2>
+    <p className="text-sm text-slate-600 mb-6">
+      This demo returns a realistic mock take-off so you can experience the flow end-to-end. 
+      The full AI model will plug in here later.
+    </p>
+    <UploadTakeoff />
+  </div>
+</section>
 
             <div className="relative">
               <ProductPreview />
