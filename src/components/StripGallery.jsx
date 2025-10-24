@@ -4,22 +4,22 @@ import React from "react";
 export default function StripGallery() {
   const steps = [
     {
-      img: "/upload-drawing.jpg",
+      img: "/upload-drawing.png",
       title: "1. Upload your drawings",
       desc: "Upload your PDF or CAD files directly — RailQuant detects layers and scales automatically.",
     },
     {
-      img: "/ai-takeoff.jpg",
+      img: "/ai-takeoff.png",
       title: "2. AI identifies and quantifies",
       desc: "The AI recognises cables, pipes, and structures — and automatically measures lengths, counts, and areas.",
     },
     {
-      img: "/excel-export.jpg",
+      img: "/excel-export.png",
       title: "3. Export Excel-ready quantities",
       desc: "Instantly download a formatted Excel sheet with all item names, units, and quantities for pricing.",
     },
     {
-      img: "/reusable-templates.jpg",
+      img: "/template-setup.png",
       title: "4. Configure reusable templates",
       desc: "Save mappings and item templates for consistent, repeatable takeoffs across future projects.",
     },
