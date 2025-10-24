@@ -1,70 +1,60 @@
+// src/components/StripGallery.jsx
 import React from "react";
 
-/**
- * StripGallery
- * -----------------------------------------
- * A horizontal, scrollable strip of feature images
- * showing how RailQuant AI processes drawings and
- * exports takeoffs to Excel.
- *
- * You can drop your real screenshots in /public/gallery/
- *   e.g.  drawing-ai.jpg, excel-output.jpg, template.jpg
- * -----------------------------------------
- */
-
-const galleryItems = [
-  {
-    src: "/gallery/upload-drawing.jpg",
-    caption: "1. Upload your rail or civils drawings",
-  },
-  {
-    src: "/gallery/ai-takeoff.jpg",
-    caption: "2. AI identifies and quantifies elements",
-  },
-  {
-    src: "/gallery/excel-output.jpg",
-    caption: "3. Export Excel-ready quantities instantly",
-  },
-  {
-    src: "/gallery/template-setup.jpg",
-    caption: "4. Configure reusable templates",
-  },
-];
-
 export default function StripGallery() {
+  const steps = [
+    {
+      img: "/upload-drawing.jpg",
+      title: "1. Upload your drawings",
+      desc: "Upload your PDF or CAD files directly — RailQuant detects layers and scales automatically.",
+    },
+    {
+      img: "/ai-takeoff.jpg",
+      title: "2. AI identifies and quantifies",
+      desc: "The AI recognises cables, pipes, and structures — and automatically measures lengths, counts, and areas.",
+    },
+    {
+      img: "/excel-export.jpg",
+      title: "3. Export Excel-ready quantities",
+      desc: "Instantly download a formatted Excel sheet with all item names, units, and quantities for pricing.",
+    },
+    {
+      img: "/reusable-templates.jpg",
+      title: "4. Configure reusable templates",
+      desc: "Save mappings and item templates for consistent, repeatable takeoffs across future projects.",
+    },
+  ];
+
   return (
-    <div className="relative">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-8 text-center">
+    <div className="overflow-x-auto">
+      <h2 className="text-2xl font-semibold text-slate-900 mb-6 text-center">
         See how RailQuant AI transforms your workflow
       </h2>
 
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-6 snap-x snap-mandatory px-2">
-          {galleryItems.map((item, idx) => (
-            <figure
-              key={idx}
-              className="snap-center shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"
-            >
-              <div className="aspect-video bg-slate-100 overflow-hidden">
-                <img
-                  src={item.src}
-                  alt={item.caption}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-              <figcaption className="p-4 text-sm text-slate-700 text-center">
-                {item.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+      <div className="flex gap-6 min-w-max">
+        {steps.map((s, i) => (
+          <div
+            key={i}
+            className="flex-shrink-0 w-72 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200"
+          >
+            <img
+              src={s.img}
+              alt={s.title}
+              className="w-full h-44 object-cover rounded-t-2xl border-b border-slate-200"
+            />
+            <div className="p-4">
+              <h3 className="text-sm font-semibold text-slate-900 mb-1">
+                {s.title}
+              </h3>
+              <p className="text-xs text-slate-600 leading-snug">{s.desc}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <p className="text-xs text-slate-500 text-center mt-4">
+      <p className="text-center mt-4 text-xs text-slate-500">
         Scroll sideways → to preview the AI-assisted takeoff flow
       </p>
     </div>
   );
 }
-
