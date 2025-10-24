@@ -13,12 +13,12 @@ export default function UploadTakeoff() {
     setResult(null);
 
     if (!file) {
-      setError("Please choose a PDF/DWG/DXF first.");
+      setError("Please select a PDF, DWG or DXF file.");
       return;
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
       const form = new FormData();
       form.append("file", file);
 
@@ -28,10 +28,10 @@ export default function UploadTakeoff() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Upload failed.");
+      if (!res.ok) throw new Error(data.error || "Upload failed");
       setResult(data.analysis);
     } catch (err) {
-      setError(err.message || "Something went wrong.");
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -39,9 +39,9 @@ export default function UploadTakeoff() {
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-slate-900">Try AI Take-off</h3>
+      <h3 className="text-lg font-semibold text-slate-900">AI Take-off Demo</h3>
       <p className="mt-1 text-sm text-slate-600">
-        Upload a drawing (PDF/DWG/DXF). We’ll generate a mock quantity take-off so you can demo the flow.
+        Upload a drawing file to simulate automatic quantity extraction.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-3">
@@ -56,19 +56,23 @@ export default function UploadTakeoff() {
           disabled={loading}
           className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 disabled:opacity-50"
         >
-          {loading ? "Analyzing…" : "Analyze drawing"}
+          {loading ? "Analyzing…" : "Analyze Drawing"}
         </button>
       </form>
 
-      {error && (
-        <p className="mt-3 text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
       {result && (
         <div className="mt-6">
           <div className="text-sm text-slate-600 mb-2">
-            File: <span className="font-medium text-slate-800">{result.filename}</span> ·
-            Confidence: <span className="font-medium text-slate-800">{Math.round(result.confidence * 100)}%</span>
+            File:{" "}
+            <span className="font-medium text-slate-800">
+              {result.filename}
+            </span>{" "}
+            · Confidence:{" "}
+            <span className="font-medium text-slate-800">
+              {Math.round(result.confidence * 100)}%
+            </span>
           </div>
 
           <div className="overflow-x-auto">
@@ -83,20 +87,22 @@ export default function UploadTakeoff() {
               <tbody>
                 {result.items.map((row, idx) => (
                   <tr key={idx}>
-                    <td className="border-b border-slate-100 py-2 pr-4">{row.item}</td>
-                    <td className="border-b border-slate-100 py-2 pr-4">{row.unit}</td>
-                    <td className="border-b border-slate-100 py-2 pr-4">{row.qty}</td>
+                    <td className="border-b border-slate-100 py-2 pr-4">
+                      {row.item}
+                    </td>
+                    <td className="border-b border-slate-100 py-2 pr-4">
+                      {row.unit}
+                    </td>
+                    <td className="border-b border-slate-100 py-2 pr-4">
+                      {row.qty}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
-          {/* Optional placeholder for an Export button (we’ll add XLS later) */}
-          {/* <button className="mt-4 rounded-xl border border-slate-300 px-4 py-2 text-sm">Export to Excel</button> */}
         </div>
       )}
     </div>
   );
 }
-
