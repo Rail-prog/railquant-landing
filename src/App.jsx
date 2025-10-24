@@ -64,60 +64,97 @@ export default function App() {
           <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1">📊 Excel-first outputs</span>
         </div>
       </div>
+{/* HERO with ProductPreview */}
+<section className="py-16 sm:py-24">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="grid items-center gap-10 md:grid-cols-2">
+      <div>
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
+          AI software for rail construction estimating and drawing takeoffs.
+        </h1>
+        <p className="mt-6 text-slate-600 leading-relaxed">
+          Upload your drawings, let RailQuant AI handle takeoffs automatically,
+          and export clean, Excel-ready results for your estimates.
+        </p>
 
-      {/* HERO with ProductPreview (video) */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div>
-              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-slate-900">
-                AI software for rail construction estimating and drawing takeoffs.
-              </h1>
-              <p className="mt-6 text-slate-600 leading-relaxed">
-                Upload your drawings, let RailQuant AI handle takeoffs automatically, and
-                export clean, Excel-ready results for your estimates.
-              </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
+          >
+            Book a discovery call
+          </a>
+          <a
+            href="#insights"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-white"
+          >
+            Read product updates
+          </a>
+        </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-slate-800"
-                >
-                  Book a discovery call
-                </a>
-                <a
-                  href="#insights"
-                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-white"
-                >
-                  Read product updates
-                </a>
-              </div>
+        <div className="mt-6 text-xs text-slate-500 space-x-2">
+          <span>NDA available</span>
+          <span>• UK-based data hosting option</span>
+          <span>• Excel-first outputs</span>
+        </div>
+      </div>
 
-              <div className="mt-6 text-xs text-slate-500 space-x-2">
-                <span>NDA available</span>
-                <span>• UK-based data hosting option</span>
-                <span>• Excel-first outputs</span>
-              </div>
-            </div>
+      <div className="relative">
+        <ProductPreview />
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div className="relative">
-              {/* This renders your video preview (ProductPreview.jsx) */}
-              <ProductPreview />
-            </div>
+{/* SEE HOW RAILQUANT TRANSFORMS WORKFLOW */}
+<section className="py-16 bg-slate-50 border-y border-slate-200">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+      See how RailQuant AI transforms your workflow
+    </h2>
+    <StripGallery />
+  </div>
+</section>
+
+{/* HOW IT WORKS */}
+<section id="how" className="py-16">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <h2 className="text-2xl font-semibold text-slate-900">How RailQuant AI Works</h2>
+
+    <div className="mt-8 grid gap-6 md:grid-cols-3">
+      {[
+        {
+          step: 1,
+          title: "Upload Drawings",
+          desc: "Import PDFs or CAD files directly. RailQuant detects layers, scales, and symbols automatically."
+        },
+        {
+          step: 2,
+          title: "AI Take-off",
+          desc: "AI identifies and quantifies elements—linear, area, and count measurements—ready for validation."
+        },
+        {
+          step: 3,
+          title: "Excel Output",
+          desc: "Export consistent, structured Excel files with item names, units, and breakdowns for pricing."
+        }
+      ].map(({ step, title, desc }) => (
+        <div
+          key={step}
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        >
+          <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
+            {step}
           </div>
+          <h3 className="mt-4 text-sm font-semibold text-slate-900">{title}</h3>
+          <p className="mt-2 text-sm text-slate-600">{desc}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* See how RailQuant AI transforms your workflow (strip gallery) */}
-      <section className="py-12 bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-            See how RailQuant AI transforms your workflow
-          </h2>
-          {/* This renders your horizontal scroll gallery with 4 images/cards */}
-          <StripGallery />
-        </div>
-      </section>
+     
 
       {/* FEATURES (cards) */}
       <section id="features" className="py-16 bg-white border-y border-slate-200">
