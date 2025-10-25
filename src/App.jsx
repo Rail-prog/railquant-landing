@@ -110,7 +110,7 @@ export default function App() {
           <h2 className="sr-only">What you can do with RailQuant</h2>
           <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
             {[
-              { title: "Drawing takeoffs", icon: "🖊️" },
+              { title: "Upload Drawings", icon: "🖊️" },
               { title: "AI takeoffs", icon: "🤖" },
               { title: "Excel-ready outputs", icon: "📊" },
               { title: "Repeatable templates", icon: "🗂️" },
