@@ -9,6 +9,7 @@ import Privacy from "./Privacy.jsx";
 import Terms from "./Terms.jsx";
 import Success from "./Success.jsx";
 import Cancel from "./Cancel.jsx";
+import "./index.css"
 
 // ...
 <Routes>
