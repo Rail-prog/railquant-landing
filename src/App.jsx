@@ -6,12 +6,10 @@ import posts from "./posts.js";
 import FeatureCard from "./components/FeatureCard.jsx";
 import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
-
-// Visual sections
 import ProductPreview from "./components/ProductPreview.jsx";
 import StripGallery from "./components/StripGallery.jsx";
 
-// Public env for the one-off price (set in Vercel as VITE_STRIPE_PRICE_ONE_OFF=price_xxx)
+// Public env for one-off price (Vercel: VITE_STRIPE_PRICE_ONE_OFF=price_xxx)
 const ONE_OFF_PRICE = import.meta.env.VITE_STRIPE_PRICE_ONE_OFF || "";
 
 export default function App() {
@@ -22,7 +20,7 @@ export default function App() {
   );
 
   const handleBuyOneOff = () => startCheckout({ priceId: ONE_OFF_PRICE });
-  const handleSubscribePro = () => startCheckout(); // server will default to PRO price
+  const handleSubscribePro = () => startCheckout(); // server defaults to PRO
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
@@ -106,8 +104,32 @@ export default function App() {
         </div>
       </section>
 
+      {/* CAPABILITY PILLS */}
+      <section className="py-10 bg-white border-y border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">What you can do with RailQuant</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              { title: "Drawing takeoffs", icon: "🖊️" },
+              { title: "Excel-ready outputs", icon: "🧮" },
+              { title: "Repeatable templates", icon: "🗂️" },
+            ].map(({ title, icon }) => (
+              <div
+                key={title}
+                className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4"
+              >
+                <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-base">
+                  {icon}
+                </div>
+                <div className="font-medium text-slate-900">{title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SEE HOW RAILQUANT TRANSFORMS WORKFLOW (horizontal gallery) */}
-      <section className="py-16 bg-slate-50 border-y border-slate-200">
+      <section className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900 mb-6">
             See how RailQuant AI transforms your workflow
@@ -116,7 +138,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS (the 3 numbered cards from your screenshot) */}
       <section id="how" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How RailQuant AI Works</h2>
@@ -126,23 +148,20 @@ export default function App() {
               {
                 step: 1,
                 title: "Upload Drawings",
-                desc: "Import PDFs or CAD files directly. RailQuant detects layers, scales, and symbols automatically."
+                desc: "Import PDFs or CAD files directly. RailQuant detects layers, scales, and symbols automatically.",
               },
               {
                 step: 2,
                 title: "AI Take-off",
-                desc: "AI identifies and quantifies elements—linear, area, and count measurements—ready for validation."
+                desc: "AI identifies and quantifies elements—linear, area, and count measurements—ready for validation.",
               },
               {
                 step: 3,
                 title: "Excel Output",
-                desc: "Export consistent, structured Excel files with item names, units, and breakdowns for pricing."
-              }
+                desc: "Export consistent, structured Excel files with item names, units, and breakdowns for pricing.",
+              },
             ].map(({ step, title, desc }) => (
-              <div
-                key={step}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
+              <div key={step} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="h-9 w-9 grid place-items-center rounded-full bg-slate-900 text-white text-sm font-semibold">
                   {step}
                 </div>
@@ -205,7 +224,7 @@ export default function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">Pricing</h2>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
             {/* One-off */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">One-off</h3>
