@@ -111,7 +111,8 @@ export default function App() {
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { title: "Drawing takeoffs", icon: "🖊️" },
-              { title: "Excel-ready outputs", icon: "🧮" },
+              { title: "AI takeoffs", icon "🤖"},
+              { title: "Excel-ready outputs", icon: "📊" },
               { title: "Repeatable templates", icon: "🗂️" },
             ].map(({ title, icon }) => (
               <div
@@ -132,7 +133,7 @@ export default function App() {
       <section className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-            See how RailQuant AI transforms your workflow
+            
           </h2>
           <StripGallery />
         </div>
