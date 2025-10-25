@@ -1,34 +1,32 @@
-export async function startCheckout({ priceId, quantity = 1 } = {}) {
+// src/stripe.js
+export async function startCheckout({ priceId } = {}) {
   try {
     const res = await fetch("/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId, quantity }),
+      body: JSON.stringify(priceId ? { priceId } : {}),
     });
 
-    const data = await res.json();
+    if (!res.ok) {
+      const text = await res.text();
+      console.error("Checkout HTTP error:", res.status, text);
+      alert("Something went wrong starting checkout.");
+      return;
+    }
 
+    const data = await res.json();
     if (data?.url) {
       window.location.href = data.url;
     } else {
-      console.error("No checkout URL returned:", data);
-      alert("Unable to start checkout. Please try again.");
+      console.error("No URL returned from checkout session:", data);
+      alert("Something went wrong starting checkout.");
     }
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error("startCheckout failed:", err);
     alert("Something went wrong starting checkout.");
   }
 }
-export async function openBillingPortal({ customerId, returnUrl } = {}) {
-  const res = await fetch("/api/create-portal-session", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ customerId, returnUrl }),
-  });
-  const data = await res.json();
-  if (data?.url) window.location.href = data.url;
-  else alert("Unable to open billing portal.");
-}
+
 
 
 
