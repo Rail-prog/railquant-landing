@@ -107,13 +107,12 @@ export default function App() {
       {/* CAPABILITY PILLS */}
       <section className="py-10 bg-white border-y border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="sr-only">What you can do with RailQuant</h2>
+          <h2 className="sr-only">How RailQuant AI works </h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { title: "Drawing takeoffs", icon: "🖊️" },
               { title: "AI takeoffs", icon "🤖"},
               { title: "Excel-ready outputs", icon: "📊" },
-              { title: "Repeatable templates", icon: "🗂️" },
             ].map(({ title, icon }) => (
               <div
                 key={title}
