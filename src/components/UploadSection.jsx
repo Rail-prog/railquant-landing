@@ -23,7 +23,7 @@ export default function UploadSection() {
       if (!uploadData.success) throw new Error("Upload failed");
       setStatus("File uploaded. Processing with AI...");
 
-      const aiRes = await fetch("/api/mock-process", {
+      const aiRes = await fetch("/api/ai-process", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fileUrl: uploadData.fileUrl }),
