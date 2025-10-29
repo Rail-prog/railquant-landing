@@ -8,6 +8,7 @@ import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 
 // NEW imports
+import UploadSection from "./components/UploadSection.jsx"
 import FeatureWorkflow from "./components/FeatureWorkflow.jsx";
 import ProductPreview from "./components/ProductPreview.jsx";
 import IllustratedFeature from "./components/IllustratedFeature.jsx";
@@ -192,7 +193,11 @@ export default function App() {
                 Buy one-off
               </button>
             </div>
-
+<section id="takeoff" className="py-16 bg-slate-50">
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <UploadSection />
+  </div>
+</section>
             {/* PRO SUBSCRIPTION */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-slate-900">Pro</h3>
