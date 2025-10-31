@@ -7,25 +7,20 @@ export async function startCheckout({ priceId } = {}) {
       body: JSON.stringify(priceId ? { priceId } : {}),
     });
 
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Checkout HTTP error:", res.status, text);
-      alert("Something went wrong starting checkout.");
-      return;
+    const ct = res.headers.get("content-type") || "";
+    const data = ct.includes("application/json") ? await res.json() : { error: await res.text() };
+
+    if (!res.ok || !data?.url) {
+      throw new Error(data?.error || "Checkout session error");
     }
 
-    const data = await res.json();
-    if (data?.url) {
-      window.location.href = data.url;
-    } else {
-      console.error("No URL returned from checkout session:", data);
-      alert("Something went wrong starting checkout.");
-    }
+    window.location.assign(data.url);
   } catch (err) {
-    console.error("startCheckout failed:", err);
-    alert("Something went wrong starting checkout.");
+    // Show the actual reason instead of a generic alert
+    alert(err.message || "Something went wrong starting checkout.");
   }
 }
+
 
 
 
