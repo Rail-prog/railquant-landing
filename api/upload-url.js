@@ -1,110 +1,111 @@
-// /api/upload-url.js
-import crypto from "crypto";
+// src/components/UploadTakeoff.jsx
+import React, { useState } from "react";
 
-export default async function handler(req, res) {
-  res.setHeader("Content-Type", "application/json");
+export default function UploadTakeoff() {
+  const [file, setFile] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [result, setResult] = useState(null);
 
-  try {
-    if (req.method !== "POST") {
-      res.status(405).json({ error: "Method not allowed" });
-      return;
+  async function startTakeoff() {
+    setMsg("");
+    setResult(null);
+
+    if (!file) return setMsg("Please select a PDF or CAD file first.");
+    setBusy(true);
+
+    try {
+      // Step 1: get upload URL
+      const res = await fetch("/api/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: file.name, type: file.type }),
+      });
+
+      const contentType = res.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await res.json()
+        : { errorText: await res.text() };
+
+      if (!res.ok || !data.url)
+        throw new Error(data.error || data.errorText || "Upload URL failed");
+
+      // Step 2: PUT to S3
+      const put = await fetch(data.url, {
+        method: "PUT",
+        headers: data.headers,
+        body: file,
+      });
+      if (!put.ok) throw new Error("S3 upload failed");
+
+      // Step 3: call AI process
+      const ai = await fetch("/api/ai-process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileUrl: data.url.split("?")[0] }),
+      });
+      const aiData = await ai.json();
+      if (!ai.ok || !aiData.ok)
+        throw new Error(aiData.error || "AI take-off failed");
+
+      setResult(aiData.rows);
+      setMsg("✅ Take-off complete.");
+    } catch (e) {
+      setMsg(`❌ ${e.message}`);
+    } finally {
+      setBusy(false);
     }
-
-    const { name, type } = req.body || {};
-    if (!name || !type) {
-      res.status(400).json({ error: "Missing 'name' or 'type' in body" });
-      return;
-    }
-
-    const {
-      AWS_ACCESS_KEY_ID,
-      AWS_SECRET_ACCESS_KEY,
-      AWS_REGION,
-      AWS_S3_BUCKET,
-    } = process.env;
-
-    if (
-      !AWS_ACCESS_KEY_ID ||
-      !AWS_SECRET_ACCESS_KEY ||
-      !AWS_REGION ||
-      !AWS_S3_BUCKET
-    ) {
-      res.status(500).json({ error: "Missing AWS credentials" });
-      return;
-    }
-
-    const safeName = String(name).replace(/[^\w.\-()]/g, "_");
-    const key = `uploads/${Date.now()}-${safeName}`;
-    const host = `${AWS_S3_BUCKET}.s3.${AWS_REGION}.amazonaws.com`;
-    const urlPath = `/${key}`;
-
-    const now = new Date();
-    const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, "");
-    const datestamp = amzDate.slice(0, 8);
-    const credentialScope = `${datestamp}/${AWS_REGION}/s3/aws4_request`;
-    const signedHeaders = "host";
-
-    const query = new URLSearchParams({
-      "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
-      "X-Amz-Credential": `${AWS_ACCESS_KEY_ID}/${credentialScope}`,
-      "X-Amz-Date": amzDate,
-      "X-Amz-Expires": "60",
-      "X-Amz-SignedHeaders": signedHeaders,
-    });
-
-    const canonicalRequest = [
-      "PUT",
-      urlPath,
-      query.toString(),
-      `host:${host}\n`,
-      signedHeaders,
-      "UNSIGNED-PAYLOAD",
-    ].join("\n");
-
-    const hashedCanonicalRequest = crypto
-      .createHash("sha256")
-      .update(canonicalRequest)
-      .digest("hex");
-
-    const stringToSign = [
-      "AWS4-HMAC-SHA256",
-      amzDate,
-      credentialScope,
-      hashedCanonicalRequest,
-    ].join("\n");
-
-    const kDate = crypto
-      .createHmac("sha256", "AWS4" + AWS_SECRET_ACCESS_KEY)
-      .update(datestamp)
-      .digest();
-    const kRegion = crypto.createHmac("sha256", kDate).update(AWS_REGION).digest();
-    const kService = crypto.createHmac("sha256", kRegion).update("s3").digest();
-    const kSigning = crypto
-      .createHmac("sha256", kService)
-      .update("aws4_request")
-      .digest();
-
-    const signature = crypto
-      .createHmac("sha256", kSigning)
-      .update(stringToSign)
-      .digest("hex");
-
-    query.set("X-Amz-Signature", signature);
-
-    const signedUrl = `https://${host}${urlPath}?${query.toString()}`;
-
-    res.status(200).json({
-      ok: true,
-      url: signedUrl,
-      key,
-      bucket: AWS_S3_BUCKET,
-      region: AWS_REGION,
-      headers: { "Content-Type": type },
-    });
-  } catch (err) {
-    console.error("upload-url error:", err);
-    res.status(500).json({ error: "Internal server error" });
   }
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm max-w-md">
+      <h3 className="text-lg font-semibold mb-1">Drawing Upload & AI Take-off</h3>
+      <p className="text-sm text-slate-600 mb-3">
+        Upload a PDF or CAD file. RailQuant AI will detect and quantify elements
+        automatically and export them for validation.
+      </p>
+
+      <input
+        type="file"
+        accept=".pdf,.dwg,.dxf,image/*"
+        onChange={(e) => setFile(e.target.files?.[0] || null)}
+        className="mb-3"
+      />
+
+      <button
+        onClick={startTakeoff}
+        disabled={!file || busy}
+        className="w-full rounded-xl bg-slate-900 px-4 py-2 text-white font-semibold disabled:opacity-50"
+      >
+        {busy ? "Processing …" : "Start Take-off"}
+      </button>
+
+      {msg && <p className="mt-3 text-sm text-slate-700">{msg}</p>}
+
+      {result && (
+        <table className="mt-4 w-full text-sm border-collapse border border-slate-200">
+          <thead className="bg-slate-100">
+            <tr>
+              {Object.keys(result[0]).map((h) => (
+                <th key={h} className="border border-slate-200 p-1">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {result.map((row, i) => (
+              <tr key={i}>
+                {Object.values(row).map((v, j) => (
+                  <td key={j} className="border border-slate-200 p-1">
+                    {v}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
 }
-
-
