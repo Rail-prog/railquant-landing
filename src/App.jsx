@@ -8,6 +8,7 @@ import CalendlyEmbed from "./components/CalendlyEmbed.jsx";
 import { startCheckout } from "./stripe";
 import ProductPreview from "./components/ProductPreview.jsx";
 import StripGallery from "./components/StripGallery.jsx";
+import UploadTakeoff from "./components/UploadTakeoff.jsx";
 
 // Public env for one-off price (Vercel: VITE_STRIPE_PRICE_ONE_OFF=price_xxx)
 const ONE_OFF_PRICE = import.meta.env.VITE_STRIPE_PRICE_ONE_OFF || "";
@@ -62,7 +63,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* ===================== HERO (with ProductPreview video) ===================== */}
+      {/* ===================== HERO (Product preview video) ===================== */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 md:grid-cols-2">
@@ -110,7 +111,7 @@ export default function App() {
           <h2 className="sr-only">What you can do with RailQuant</h2>
           <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
             {[
-              { title: "Upload Drawings", icon: "🖊️" },
+              { title: "Upload Drawings", icon: "📂" },
               { title: "AI takeoffs", icon: "🤖" },
               { title: "Excel-ready outputs", icon: "📊" },
               { title: "Repeatable templates", icon: "🗂️" },
@@ -129,16 +130,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===================== “SEE HOW… TRANSFORMS” GALLERY ===================== */}
+      {/* ===================== “SEE HOW…” GALLERY ===================== */}
       <section className="py-16 bg-slate-50 border-b border-slate-200">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-          </h2>
+          <h2 className="text-2xl font-semibold text-slate-900 mb-6"></h2>
           <StripGallery />
         </div>
       </section>
 
-      {/* ===================== HOW IT WORKS (3 cards) ===================== */}
+      {/* ===================== HOW IT WORKS (3 steps) ===================== */}
       <section id="how" className="py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold text-slate-900">How RailQuant AI Works</h2>
@@ -169,6 +169,35 @@ export default function App() {
                 <p className="mt-2 text-sm text-slate-600">{desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== DRAWING UPLOAD & AI TAKE-OFF (interactive) ===================== */}
+      <section className="py-16 bg-white border-y border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                Drawing Upload & AI Take-off
+              </h2>
+              <p className="text-sm text-slate-600 mb-6">
+                Upload a PDF or CAD file. RailQuant AI will detect and quantify elements, then export
+                the take-off results to Excel automatically.
+              </p>
+              {/* This component talks to /api/upload-url and posts to /api/takeoff */}
+              <UploadTakeoff />
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-slate-900">Tips for best results</h3>
+              <ul className="mt-3 text-sm text-slate-600 list-disc pl-5 space-y-2">
+                <li>Use layered PDFs or CAD exports when possible (preserves linework/scale).</li>
+                <li>Include at least one scale bar or dimension for automatic scale detection.</li>
+                <li>Group similar elements (e.g., cable tray types) to improve item mapping.</li>
+                <li>We’ll return an Excel with named items, units, quantities and breakdowns.</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -384,4 +413,5 @@ export default function App() {
     </div>
   );
 }
+
 
