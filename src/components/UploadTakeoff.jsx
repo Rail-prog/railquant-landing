@@ -1,107 +1,110 @@
 // src/components/UploadTakeoff.jsx
-import React from "react";
+import React, { useState } from "react";
 
 export default function UploadTakeoff() {
-  const [file, setFile] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const [result, setResult] = React.useState(null);
-  const [error, setError] = React.useState("");
+  const [file, setFile] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [result, setResult] = useState(null);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError("");
+  async function startTakeoff() {
+    setMsg("");
     setResult(null);
 
-    if (!file) {
-      setError("Please select a PDF, DWG or DXF file.");
-      return;
-    }
+    if (!file) return setMsg("Please select a PDF or CAD file first.");
+    setBusy(true);
 
-    setLoading(true);
     try {
-      const form = new FormData();
-      form.append("file", file);
-
-      const res = await fetch("/api/upload", {
+      // Step 1: get upload URL
+      const res = await fetch("/api/upload-url", {
         method: "POST",
-        body: form,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: file.name, type: file.type }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
-      setResult(data.analysis);
-    } catch (err) {
-      setError(err.message);
+      const contentType = res.headers.get("content-type") || "";
+      const data = contentType.includes("application/json")
+        ? await res.json()
+        : { errorText: await res.text() };
+
+      if (!res.ok || !data.url)
+        throw new Error(data.error || data.errorText || "Upload URL failed");
+
+      // Step 2: PUT to S3
+      const put = await fetch(data.url, {
+        method: "PUT",
+        headers: data.headers,
+        body: file,
+      });
+      if (!put.ok) throw new Error("S3 upload failed");
+
+      // Step 3: call AI process
+      const ai = await fetch("/api/ai-process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileUrl: data.url.split("?")[0] }),
+      });
+      const aiData = await ai.json();
+      if (!ai.ok || !aiData.ok)
+        throw new Error(aiData.error || "AI take-off failed");
+
+      setResult(aiData.rows);
+      setMsg("✅ Take-off complete.");
+    } catch (e) {
+      setMsg(`❌ ${e.message}`);
     } finally {
-      setLoading(false);
+      setBusy(false);
     }
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-slate-900">AI Take-off Demo</h3>
-      <p className="mt-1 text-sm text-slate-600">
-        Upload a drawing file to simulate automatic quantity extraction.
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm max-w-md">
+      <h3 className="text-lg font-semibold mb-1">Drawing Upload & AI Take-off</h3>
+      <p className="text-sm text-slate-600 mb-3">
+        Upload a PDF or CAD file. RailQuant AI will detect and quantify elements
+        automatically and export them for validation.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-        <input
-          type="file"
-          accept=".pdf,.dwg,.dxf"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-lg file:border-0 file:bg-slate-900 file:px-4 file:py-2 file:text-white hover:file:bg-slate-800"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 disabled:opacity-50"
-        >
-          {loading ? "Analyzing…" : "Analyze Drawing"}
-        </button>
-      </form>
+      <input
+        type="file"
+        accept=".pdf,.dwg,.dxf,image/*"
+        onChange={(e) => setFile(e.target.files?.[0] || null)}
+        className="mb-3"
+      />
 
-      {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+      <button
+        onClick={startTakeoff}
+        disabled={!file || busy}
+        className="w-full rounded-xl bg-slate-900 px-4 py-2 text-white font-semibold disabled:opacity-50"
+      >
+        {busy ? "Processing …" : "Start Take-off"}
+      </button>
+
+      {msg && <p className="mt-3 text-sm text-slate-700">{msg}</p>}
 
       {result && (
-        <div className="mt-6">
-          <div className="text-sm text-slate-600 mb-2">
-            File:{" "}
-            <span className="font-medium text-slate-800">
-              {result.filename}
-            </span>{" "}
-            · Confidence:{" "}
-            <span className="font-medium text-slate-800">
-              {Math.round(result.confidence * 100)}%
-            </span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="text-left text-slate-600">
-                  <th className="border-b border-slate-200 py-2 pr-4">Item</th>
-                  <th className="border-b border-slate-200 py-2 pr-4">Unit</th>
-                  <th className="border-b border-slate-200 py-2 pr-4">Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.items.map((row, idx) => (
-                  <tr key={idx}>
-                    <td className="border-b border-slate-100 py-2 pr-4">
-                      {row.item}
-                    </td>
-                    <td className="border-b border-slate-100 py-2 pr-4">
-                      {row.unit}
-                    </td>
-                    <td className="border-b border-slate-100 py-2 pr-4">
-                      {row.qty}
-                    </td>
-                  </tr>
+        <table className="mt-4 w-full text-sm border-collapse border border-slate-200">
+          <thead className="bg-slate-100">
+            <tr>
+              {Object.keys(result[0]).map((h) => (
+                <th key={h} className="border border-slate-200 p-1">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {result.map((row, i) => (
+              <tr key={i}>
+                {Object.values(row).map((v, j) => (
+                  <td key={j} className="border border-slate-200 p-1">
+                    {v}
+                  </td>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
